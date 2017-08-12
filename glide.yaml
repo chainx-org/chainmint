@@ -1,4 +1,4 @@
-package: github.com/gguoss/chainmint
+package: github.com/chainmint
 import:
 - package: github.com/tendermint/tendermint
   version: 0.10.x
