@@ -133,6 +133,18 @@ imports:
   version: aa2eb687b4d3e17154372564ad8d6bf11c3cf21f
   subpackages:
   - googleapis/rpc/status
+- name: github.com/golang/crypto
+- name: github.com/golang/net
+- name: github.com/golang/text
+- name: github.com/golang/tools
+- name: github.com/golang/sys
+- name: github.com/tendermint/merkleeyes
+  version: a0e73e1ac3e18e12a007520a4ea2c9822256e307
+  subpackages:
+  - app
+  - client
+  - iavl
+  - testutil
 - name: google.golang.org/grpc
   version: 1d797552aeb8789a732a9f8f5bee2ff2bae3e34c
   subpackages:
