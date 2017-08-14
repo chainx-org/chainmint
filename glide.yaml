@@ -14,4 +14,3 @@ import:
   version: 0.x
 - package: github.com/chain/chain
   version: 1.2-stable
-  repo: https://github.com/chain/chain.git
