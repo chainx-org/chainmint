@@ -188,3 +188,9 @@ testImports:
   version: f6abca593680b2315d2075e0f5e2a9751e3f431a
   subpackages:
   - assert
+- package: github.com/chain/chain
+  version: 1.2-stable
+  repo: https://github.com/chain/chain.git
+  subpackages:
+  - core
+  - protocol
