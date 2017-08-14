@@ -4,3 +4,4 @@ get_vendor_deps:
 
 build:
 	@ go build -i github.com/chainmint/cmd/chainmint/...
+
