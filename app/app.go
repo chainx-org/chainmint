@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/chain/chain/protocol/state"
+	"github.com/chainmint/chain"
+	"github.com/chain/chain/core/rpc"
 	abciTypes "github.com/tendermint/abci/types"
 
 	emtTypes "github.com/tendermint/ethermint/types"
@@ -13,30 +16,28 @@ import (
 // ChainmintApplication implements an ABCI application
 type ChainmintApplication struct {
 
-/*
-	// backend handles the ethereum state machine
-	// and wrangles other services started by an ethereum node (eg. tx pool)
-	backend *ethereum.Backend // backend ethereum struct
+	// backend handles the chain state machine
+	// and wrangles other services started by an chain node (eg. tx pool)
+	backend *chain.Backend // backend ethereum struct
 
-	// a closure to return the latest current state from the ethereum blockchain
-	currentState func() (*state.StateDB, error)
+	// a closure to return the latest current state from the chain
+	currentState func() (*state.Snapshot, error)
 
-	// an ethereum rpc client we can forward queries to
+	// an chain rpc client we can forward queries to
 	rpcClient *rpc.Client
-	*/
 
 	// strategy for validator compensation
 	strategy *emtTypes.Strategy
 }
 
 // NewChainmintApplication creates the abci application for Chainmint
-func NewChainmintApplication(/*backend *ethereum.Backend,
-	client *rpc.Client, */strategy *emtTypes.Strategy) (*ChainmintApplication, error) {
+func NewChainmintApplication(backend *chain.Backend,
+	client *rpc.Client, strategy *emtTypes.Strategy) (*ChainmintApplication, error) {
+	_, state := backend.chain.State()
 	app := &ChainmintApplication{
-		/*backend:      backend,
+		backend:      backend,
 		rpcClient:    client,
-		currentState: backend.Ethereum().BlockChain().State,
-		*/
+		currentState: state,
 		strategy:     strategy,
 	}
 

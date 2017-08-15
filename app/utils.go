@@ -3,6 +3,8 @@ package app
 import (
 	"bytes"
 	"encoding/json"
+	github.com/chain/encoding/blockchain
+	github.com/chain/protocol/bc/legacy
 
 	abciTypes "github.com/tendermint/abci/types"
 )
@@ -14,11 +16,11 @@ type jsonRequest struct {
 	Params []interface{}   `json:"params,omitempty"`
 }
 
-// rlp decode an etherum transaction
-func decodeTx(txBytes []byte) (*types.Transaction, error) {
-	tx := new(types.Transaction)
-	rlpStream := rlp.NewStream(bytes.NewBuffer(txBytes), 0)
-	if err := tx.DecodeRLP(rlpStream); err != nil {
+// decode to chain's transaction
+func decodeTx(txBytes []byte) (*legacy.Tx, error) {
+	var tx legacy.Tx
+	err := UnmarshalText(txBytes)
+	if err != nil {
 		return nil, err
 	}
 	return tx, nil
@@ -51,7 +53,7 @@ func (app *ChainmintApplication) GetUpdatedValidators() abciTypes.ResponseEndBlo
 }
 
 // CollectTx invokes CollectTx on the strategy
-func (app *ChainmintApplication) CollectTx(tx *types.Transaction) {
+func (app *ChainmintApplication) CollectTx(tx *legacy.Tx) {
 	if app.strategy != nil {
 		app.strategy.CollectTx(tx)
 	}
