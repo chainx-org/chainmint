@@ -12,7 +12,7 @@ import (
 
 func main() {
 
-	addrPtr := flag.String("addr", "tcp://0.0.0.0:46659", "Listen address")
+	addrPtr := flag.String("addr", "tcp://0.0.0.0:44000", "Listen address")
 	abciPtr := flag.String("abci", "socket", "socket | grpc")
 	flag.Parse()
 

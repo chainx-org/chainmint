@@ -15,7 +15,7 @@ var (
 		Usage: "This is the address that ethermint will use to connect to the tendermint core node. Please provide a port.",
 	}
 
-	// ABCIAddrFlag is the address that ethermint will use to listen to incoming ABCI connections
+	// ABCIAddrFlag is the address that chainmint will use to listen to incoming ABCI connections
 	ABCIAddrFlag = cli.StringFlag{
 		Name:  "abci_laddr",
 		Value: "tcp://0.0.0.0:46658",

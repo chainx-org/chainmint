@@ -1,8 +1,6 @@
 hash: 9e65c883c0b37741d1af46755dda27e5809696e50e5aa4335aa6686c4bb67fa1
 updated: 2017-08-14T13:58:40.398380446+08:00
 imports:
-- name: github.com/chain/chain
-  version: 1b376ddd9ff6abda564b23975ef50b1a849ac7f6
 - name: github.com/go-kit/kit
   version: 0c52d4024a04395dabac42b65e5825d08d3335df
   subpackages:

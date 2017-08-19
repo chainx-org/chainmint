@@ -18,7 +18,7 @@ type ChainmintApplication struct {
 
 	// backend handles the chain state machine
 	// and wrangles other services started by an chain node (eg. tx pool)
-	backend *chain.Backend // backend ethereum struct
+	backend *chain.Backend // backend chain struct
 
 	// a closure to return the latest current state from the chain
 	currentState func() (*state.Snapshot, error)
