@@ -7,7 +7,7 @@ import (
 	"encoding/hex"
 	"net/http"
 
-	"chain/log"
+	"github.com/chainmint/log"
 )
 
 // key is an unexported type for keys defined in this package.

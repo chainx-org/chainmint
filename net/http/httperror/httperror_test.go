@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"chain/errors"
-	"chain/log"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/log"
 )
 
 var (

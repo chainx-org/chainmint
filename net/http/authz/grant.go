@@ -7,8 +7,8 @@ import (
 
 	"github.com/golang/protobuf/proto"
 
-	"chain/database/raft"
-	"chain/errors"
+	"github.com/chainmint/database/raft"
+	"github.com/chainmint/errors"
 )
 
 // Generate code for the Grant and GrantList types.

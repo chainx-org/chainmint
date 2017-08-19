@@ -4,7 +4,7 @@ import (
 	"net"
 	"time"
 
-	"chain/net/etcdname"
+	"github.com/chainmint/net/etcdname"
 )
 
 var knownNetworks = map[string]bool{

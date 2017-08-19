@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"chain/log"
+	"github.com/chainmint/log"
 )
 
 func TestPrintkvRequestID(t *testing.T) {

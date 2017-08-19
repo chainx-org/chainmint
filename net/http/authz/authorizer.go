@@ -10,9 +10,9 @@ import (
 
 	"github.com/golang/protobuf/proto"
 
-	"chain/database/raft"
-	"chain/errors"
-	"chain/net/http/authn"
+	"github.com/chainmint/database/raft"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/net/http/authn"
 )
 
 var ErrNotAuthorized = errors.New("not authorized")

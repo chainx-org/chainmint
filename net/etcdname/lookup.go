@@ -12,7 +12,7 @@ import (
 
 	"github.com/coreos/etcd/client"
 
-	"chain/log"
+	"github.com/chainmint/log"
 )
 
 var (

@@ -10,8 +10,8 @@ import (
 	"sync"
 	"time"
 
-	"chain/core/accesstoken"
-	"chain/errors"
+	"github.com/chainmint/core/accesstoken"
+	"github.com/chainmint/errors"
 )
 
 const tokenExpiry = time.Minute * 5

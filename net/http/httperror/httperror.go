@@ -6,10 +6,10 @@ import (
 	"context"
 	"net/http"
 
-	"chain/errors"
-	"chain/log"
-	"chain/net/http/httpjson"
-	"chain/net/http/reqid"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/log"
+	"github.com/chainmint/net/http/httpjson"
+	"github.com/chainmint/net/http/reqid"
 )
 
 func init() {

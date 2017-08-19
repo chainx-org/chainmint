@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"chain/log"
+	"github.com/chainmint/log"
 )
 
 func TestWriteArray(t *testing.T) {

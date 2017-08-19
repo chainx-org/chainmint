@@ -1,9 +1,9 @@
 package app
 
 import (
-	"bytes"
+	//"bytes"
 	"encoding/json"
-	"github.com/chainmint/encoding/blockchain"
+	//"github.com/chainmint/encoding/blockchain"
 	"github.com/chainmint/protocol/bc/legacy"
 
 	abciTypes "github.com/tendermint/abci/types"
@@ -19,23 +19,24 @@ type jsonRequest struct {
 // decode to chain's transaction
 func decodeTx(txBytes []byte) (*legacy.Tx, error) {
 	var tx legacy.Tx
-	err := UnmarshalText(txBytes)
+	err := tx.UnmarshalText(txBytes)
 	if err != nil {
 		return nil, err
 	}
-	return tx, nil
+	return &tx, nil
 }
 
 //-------------------------------------------------------
 // convenience methods for validators
 
 // Receiver returns the receiving address based on the selected strategy
-func (app *ChainmintApplication) Receiver() common.Address {
+/*func (app *ChainmintApplication) Receiver() common.Address {
 	if app.strategy != nil {
 		return app.strategy.Receiver()
 	}
 	return common.Address{}
 }
+*/
 
 // SetValidators sets new validators on the strategy
 func (app *ChainmintApplication) SetValidators(validators []*abciTypes.Validator) {

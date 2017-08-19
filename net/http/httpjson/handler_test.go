@@ -9,7 +9,7 @@ import (
 	"testing"
 	"testing/iotest"
 
-	"chain/errors"
+	"github.com/chainmint/errors"
 )
 
 func TestHandler(t *testing.T) {
