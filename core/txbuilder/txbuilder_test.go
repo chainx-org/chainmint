@@ -12,15 +12,15 @@ import (
 
 	"golang.org/x/crypto/sha3"
 
-	"chain/crypto/ed25519"
-	"chain/crypto/ed25519/chainkd"
-	"chain/encoding/json"
-	"chain/errors"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/vm"
-	"chain/protocol/vmutil"
-	"chain/testutil"
+	"github.com/chain/crypto/ed25519"
+	"github.com/chain/crypto/ed25519/chainkd"
+	"github.com/chain/encoding/json"
+	"github.com/chain/errors"
+	"github.com/chain/protocol/bc"
+	"github.com/chain/protocol/bc/legacy"
+	"github.com/chain/protocol/vm"
+	"github.com/chain/protocol/vmutil"
+	"github.com/chain/testutil"
 )
 
 type testAction bc.AssetAmount

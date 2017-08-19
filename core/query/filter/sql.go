@@ -8,7 +8,7 @@ import (
 
 	"github.com/lib/pq"
 
-	"chain/errors"
+	"github.com/chainmint/errors"
 )
 
 // AsSQL translates p to SQL.

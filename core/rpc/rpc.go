@@ -12,9 +12,9 @@ import (
 	"strings"
 	"time"
 
-	"chain/errors"
-	"chain/net/http/httperror"
-	"chain/net/http/reqid"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/net/http/httperror"
+	"github.com/chainmint/net/http/reqid"
 )
 
 // Chain-specific header fields

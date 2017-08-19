@@ -4,14 +4,14 @@ import (
 	"context"
 	"testing"
 
-	"chain/core/query"
-	"chain/crypto/ed25519"
-	"chain/crypto/ed25519/chainkd"
-	"chain/database/pg/pgtest"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/prottest"
-	"chain/testutil"
+	"github.com/chainmint/core/query"
+	"github.com/chainmint/crypto/ed25519"
+	"github.com/chainmint/crypto/ed25519/chainkd"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/protocol/prottest"
+	"github.com/chainmint/testutil"
 )
 
 const (

@@ -5,12 +5,12 @@ import (
 	"context"
 	"encoding/json"
 
-	"chain/crypto/ed25519/chainkd"
-	"chain/crypto/sha3pool"
-	chainjson "chain/encoding/json"
-	"chain/errors"
-	"chain/protocol/bc"
-	"chain/protocol/vm"
+	"github.com/chainmint/crypto/ed25519/chainkd"
+	"github.com/chainmint/crypto/sha3pool"
+	chainjson "github.com/chainmint/encoding/json"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/vm"
 	"chain/protocol/vmutil"
 )
 

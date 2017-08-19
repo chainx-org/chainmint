@@ -6,16 +6,16 @@ import (
 	"testing"
 	"time"
 
-	"chain/core/account"
-	"chain/core/asset"
-	"chain/core/pin"
-	"chain/core/query"
-	"chain/core/txbuilder"
-	"chain/crypto/ed25519/chainkd"
-	"chain/protocol"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
-	"chain/testutil"
+	"github.com/chainmint/core/account"
+	"github.com/chainmint/core/asset"
+	"github.com/chainmint/core/pin"
+	"github.com/chainmint/core/query"
+	"github.com/chainmint/core/txbuilder"
+	"github.com/chainmint/crypto/ed25519/chainkd"
+	"github.com/chainmint/protocol"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/testutil"
 )
 
 func CreatePins(ctx context.Context, t testing.TB, s *pin.Store) {

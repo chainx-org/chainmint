@@ -6,9 +6,9 @@ import (
 	"context"
 	"strconv"
 
-	"chain/database/pg"
-	"chain/errors"
-	"chain/log"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/log"
 )
 
 func ListenBlocks(ctx context.Context, dbURL string) (<-chan uint64, error) {

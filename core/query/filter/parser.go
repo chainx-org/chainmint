@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"chain/errors"
+	"github.com/chainmint/errors"
 )
 
 // ErrBadFilter is returned from Parse when

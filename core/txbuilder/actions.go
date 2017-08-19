@@ -4,11 +4,11 @@ import (
 	"context"
 	stdjson "encoding/json"
 
-	"chain/encoding/json"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/vm"
-	"chain/protocol/vmutil"
+	"github.com/chainmint/encoding/json"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/protocol/vm"
+	"github.com/chainmint/protocol/vmutil"
 )
 
 var retirementProgram = vmutil.NewBuilder().AddOp(vm.OP_FAIL).Program

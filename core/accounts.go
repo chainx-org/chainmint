@@ -4,10 +4,10 @@ import (
 	"context"
 	"sync"
 
-	"chain/core/account"
-	"chain/crypto/ed25519/chainkd"
-	"chain/net/http/httpjson"
-	"chain/net/http/reqid"
+	"github.com/chainmint/core/account"
+	"github.com/chainmint/crypto/ed25519/chainkd"
+	"github.com/chainmint/net/http/httpjson"
+	"github.com/chainmint/net/http/reqid"
 )
 
 // POST /create-account

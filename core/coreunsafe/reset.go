@@ -12,11 +12,11 @@ import (
 
 	"github.com/lib/pq"
 
-	"chain/core"
-	"chain/core/config"
-	"chain/database/pg"
-	"chain/database/raft"
-	"chain/errors"
+	"github.com/chainmint/core"
+	"github.com/chainmint/core/config"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/database/raft"
+	"github.com/chainmint/errors"
 )
 
 var (

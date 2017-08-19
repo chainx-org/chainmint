@@ -6,17 +6,17 @@ import (
 	"sync"
 	"time"
 
-	"chain/core/fetch"
-	"chain/core/leader"
-	"chain/core/txbuilder"
-	"chain/database/pg"
-	chainjson "chain/encoding/json"
-	"chain/errors"
-	"chain/log"
-	"chain/net/http/httperror"
-	"chain/net/http/reqid"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
+	"github.com/chainmint/core/fetch"
+	"github.com/chainmint/core/leader"
+	"github.com/chainmint/core/txbuilder"
+	"github.com/chainmint/database/pg"
+	chainjson "github.com/chain/encoding/json"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/log"
+	"github.com/chainmint/net/http/httperror"
+	"github.com/chainmint/net/http/reqid"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
 )
 
 var defaultTxTTL = 5 * time.Minute

@@ -6,9 +6,9 @@ import (
 
 	"github.com/golang/protobuf/proto"
 
-	"chain/errors"
-	"chain/net/http/authz"
-	"chain/net/http/httpjson"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/net/http/authz"
+	"github.com/chainmint/net/http/httpjson"
 )
 
 // an api-friendly representation of a grant

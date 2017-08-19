@@ -5,7 +5,7 @@ package config
 import (
 	"context"
 
-	"chain/database/pg"
+	"github.com/chainmint/database/pg"
 )
 
 func getOrCreateDevKey(_ context.Context, _ pg.DB, _ *Config) (blockpub []byte, err error) {

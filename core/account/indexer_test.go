@@ -4,11 +4,11 @@ import (
 	"context"
 	"testing"
 
-	"chain/database/pg/pgtest"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/prottest"
-	"chain/testutil"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/protocol/prottest"
+	"github.com/chainmint/testutil"
 )
 
 func TestLoadAccountInfo(t *testing.T) {

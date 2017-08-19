@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"math"
 
-	"chain/core/query"
-	"chain/core/txfeed"
-	"chain/errors"
-	"chain/net/http/httpjson"
+	"github.com/chainmint/core/query"
+	"github.com/chainmint/core/txfeed"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/net/http/httpjson"
 )
 
 // POST /create-txfeed

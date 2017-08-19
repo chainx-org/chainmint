@@ -6,8 +6,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	"chain/errors"
-	"chain/net"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/net"
 )
 
 var ErrNoTLS = errors.New("no TLS configuration available")

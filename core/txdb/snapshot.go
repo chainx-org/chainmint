@@ -5,13 +5,13 @@ import (
 
 	"github.com/golang/protobuf/proto"
 
-	"chain/core/txdb/internal/storage"
-	"chain/database/pg"
-	"chain/database/sql"
-	"chain/errors"
-	"chain/protocol/bc"
-	"chain/protocol/patricia"
-	"chain/protocol/state"
+	"github.com/chainmint/core/txdb/internal/storage"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/database/sql"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/patricia"
+	"github.com/chainmint/protocol/state"
 )
 
 // DecodeSnapshot decodes a snapshot from the Chain Core's binary,

@@ -9,11 +9,11 @@ import (
 	"sync"
 	"time"
 
-	"chain/database/pg"
-	"chain/log"
-	"chain/protocol"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/log"
+	"github.com/chainmint/protocol"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
 )
 
 // A BlockSigner signs blocks.

@@ -6,11 +6,11 @@ import (
 	"context"
 	"fmt"
 
-	"chain/crypto/ed25519"
-	"chain/database/pg"
-	"chain/errors"
-	"chain/protocol"
-	"chain/protocol/bc/legacy"
+	"github.com/chainmint/crypto/ed25519"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol"
+	"github.com/chainmint/protocol/bc/legacy"
 )
 
 // ErrConsensusChange is returned from ValidateAndSignBlock

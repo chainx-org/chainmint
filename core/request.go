@@ -3,9 +3,9 @@ package core
 import (
 	"context"
 
-	"chain/encoding/json"
-	"chain/errors"
-	"chain/protocol/bc/legacy"
+	"github.com/chainmint/encoding/json"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc/legacy"
 )
 
 var (

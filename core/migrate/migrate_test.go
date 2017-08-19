@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"chain/database/pg/pgtest"
+	"github.com/chainmint/database/pg/pgtest"
 )
 
 func TestLoadStatus(t *testing.T) {

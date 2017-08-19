@@ -6,10 +6,10 @@ import (
 	"sync"
 	"time"
 
-	"chain/encoding/json"
-	"chain/errors"
-	"chain/net/http/httpjson"
-	"chain/net/http/reqid"
+	"github.com/chainmint/encoding/json"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/net/http/httpjson"
+	"github.com/chainmint/net/http/reqid"
 )
 
 // POST /create-control-program

@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"testing"
 
-	"chain/core/query"
-	"chain/database/pg/pgtest"
-	"chain/protocol/prottest"
-	"chain/testutil"
+	"github.com/chainmint/core/query"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/protocol/prottest"
+	"github.com/chainmint/testutil"
 )
 
 func TestAnnotateTxs(t *testing.T) {

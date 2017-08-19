@@ -9,11 +9,11 @@ import (
 	"net/url"
 	"testing"
 
-	"chain/core/config"
-	"chain/core/leader"
-	"chain/net"
-	"chain/net/http/httpjson"
-	"chain/testutil"
+	"github.com/chainmint/core/config"
+	"github.com/chainmint/core/leader"
+	"github.com/chainmint/net"
+	"github.com/chainmint/net/http/httpjson"
+	"github.com/chainmint/testutil"
 )
 
 func TestForwardToLeader(t *testing.T) {

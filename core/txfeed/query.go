@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"chain/errors"
+	"github.com/chainmint/errors"
 )
 
 // Query queries the Chain Core for txfeeds matching the query.

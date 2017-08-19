@@ -3,8 +3,8 @@ package query
 import (
 	"testing"
 
-	"chain/core/query/filter"
-	"chain/testutil"
+	"github.com/chainmint/core/query/filter"
+	"github.com/chainmint/testutil"
 )
 
 func TestConstructBalancesQuery(t *testing.T) {

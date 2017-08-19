@@ -5,11 +5,11 @@ package core
 import (
 	"context"
 
-	"chain/core/mockhsm"
-	"chain/core/txbuilder"
-	"chain/crypto/ed25519/chainkd"
-	"chain/net/http/httperror"
-	"chain/net/http/httpjson"
+	"github.com/chainmint/core/mockhsm"
+	"github.com/chainmint/core/txbuilder"
+	"github.com/chainmint/crypto/ed25519/chainkd"
+	"github.com/chainmint/net/http/httperror"
+	"github.com/chainmint/net/http/httpjson"
 )
 
 func init() {

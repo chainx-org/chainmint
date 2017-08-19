@@ -7,12 +7,12 @@ import (
 
 	"github.com/davecgh/go-spew/spew"
 
-	"chain/core/query"
-	"chain/crypto/ed25519/chainkd"
-	"chain/database/pg/pgtest"
-	"chain/protocol/bc"
-	"chain/protocol/prottest"
-	"chain/testutil"
+	"github.com/chainmint/core/query"
+	"github.com/chainmint/crypto/ed25519/chainkd"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/prottest"
+	"github.com/chainmint/testutil"
 )
 
 func TestAnnotateTxs(t *testing.T) {

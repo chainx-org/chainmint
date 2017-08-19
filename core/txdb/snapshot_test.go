@@ -5,10 +5,10 @@ import (
 	"math/rand"
 	"testing"
 
-	"chain/database/pg/pgtest"
-	"chain/protocol/bc"
-	"chain/protocol/state"
-	"chain/testutil"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/state"
+	"github.com/chainmint/testutil"
 )
 
 func TestReadWriteStateSnapshotNonceSet(t *testing.T) {

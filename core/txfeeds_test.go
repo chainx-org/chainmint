@@ -3,8 +3,8 @@ package core
 import (
 	"testing"
 
-	"chain/core/query"
-	"chain/errors"
+	"github.com/chainmint/core/query"
+	"github.com/chainmint/errors"
 )
 
 func TestTxFeedIsBefore(t *testing.T) {

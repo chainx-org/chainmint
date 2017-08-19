@@ -8,8 +8,8 @@ import (
 
 	"github.com/lib/pq"
 
-	"chain/core/query/filter"
-	"chain/errors"
+	"github.com/chainmint/core/query/filter"
+	"github.com/chainmint/errors"
 )
 
 // Balances performs a balances query against the annotated_outputs.

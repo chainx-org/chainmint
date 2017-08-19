@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"chain/core/accesstoken"
-	"chain/database/pg/pgtest"
-	"chain/database/raft"
+	"github.com/chainmint/core/accesstoken"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/database/raft"
 )
 
 func TestCreatGrantValidation(t *testing.T) {

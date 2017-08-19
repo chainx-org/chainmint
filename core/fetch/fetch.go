@@ -9,12 +9,12 @@ import (
 	"sync"
 	"time"
 
-	"chain/core/rpc"
-	"chain/errors"
-	"chain/log"
-	"chain/protocol"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/state"
+	"github.com/chainmint/core/rpc"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/log"
+	"github.com/chainmint/protocol"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chain/protocol/state"
 )
 
 const heightPollingPeriod = 3 * time.Second

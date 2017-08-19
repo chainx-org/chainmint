@@ -7,13 +7,13 @@ import (
 	"testing"
 	"time"
 
-	"chain/crypto/ed25519"
-	"chain/database/pg/pgtest"
-	"chain/protocol"
-	"chain/protocol/bc/bctest"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/prottest"
-	"chain/testutil"
+	"github.com/chainmint/crypto/ed25519"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/protocol"
+	"github.com/chainmint/protocol/bc/bctest"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/protocol/prottest"
+	"github.com/chainmint/testutil"
 )
 
 func TestGeneratorRecovery(t *testing.T) {

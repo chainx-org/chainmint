@@ -3,8 +3,8 @@ package filter
 import (
 	"testing"
 
-	"chain/errors"
-	"chain/testutil"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/testutil"
 )
 
 var (

@@ -5,14 +5,14 @@ import (
 	"testing"
 	"time"
 
-	"chain/core/account"
-	"chain/core/asset"
-	"chain/core/pin"
-	"chain/core/query"
-	"chain/database/pg/pgtest"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/prottest"
+	"github.com/chainmint/core/account"
+	"github.com/chainmint/core/asset"
+	"github.com/chainmint/core/pin"
+	"github.com/chainmint/core/query"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/protocol/prottest"
 )
 
 func TestQueryWithClockSkew(t *testing.T) {

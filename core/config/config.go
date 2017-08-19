@@ -17,19 +17,19 @@ import (
 
 	"github.com/golang/protobuf/proto"
 
-	"chain/core/accesstoken"
-	"chain/core/rpc"
-	"chain/core/txdb"
-	"chain/crypto/ed25519"
-	"chain/database/pg"
-	"chain/database/raft"
-	"chain/database/sql"
-	"chain/errors"
-	"chain/log"
-	"chain/net/http/authz"
-	"chain/protocol"
-	"chain/protocol/bc"
-	"chain/protocol/state"
+	"github.com/chainmint/core/accesstoken"
+	"github.com/chainmint/core/rpc"
+	"github.com/chainmint/core/txdb"
+	"github.com/chainmint/crypto/ed25519"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/database/raft"
+	"github.com/chainmint/database/sql"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/log"
+	"github.com/chainmint/net/http/authz"
+	"github.com/chainmint/protocol"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/state"
 )
 
 const (

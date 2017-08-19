@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"chain/metrics"
-	"chain/net/http/reqid"
+	"github.com/chainmint/metrics"
+	"github.com/chainmint/net/http/reqid"
 )
 
 var (

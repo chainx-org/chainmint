@@ -6,8 +6,8 @@ import (
 	"net"
 	"time"
 
-	"chain/errors"
-	"chain/net/http/authz"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/net/http/authz"
 )
 
 var errMissingAddr = errors.New("missing address")

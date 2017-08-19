@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"time"
 
-	"chain/database/pg"
-	"chain/errors"
-	"chain/log"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/log"
 )
 
 // Run runs all built-in migrations.

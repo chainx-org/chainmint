@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"chain/core/query/filter"
-	"chain/errors"
+	"github.com/chainmint/core/query/filter"
+	"github.com/chainmint/errors"
 )
 
 // SaveAnnotatedAccount saves an annotated account to the query indexes.

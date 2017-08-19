@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"chain/testutil"
+	"github.com/chainmint/testutil"
 )
 
 func TestRPCCallJSON(t *testing.T) {

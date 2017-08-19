@@ -4,11 +4,11 @@ import (
 	"context"
 	"encoding/json"
 
-	"chain/core/accesstoken"
-	"chain/errors"
-	"chain/log"
-	"chain/net/http/authz"
-	"chain/net/http/httpjson"
+	"github.com/chainmint/core/accesstoken"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/log"
+	"github.com/chainmint/net/http/authz"
+	"github.com/chainmint/net/http/httpjson"
 )
 
 var errCurrentToken = errors.New("token cannot delete itself")

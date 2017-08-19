@@ -6,11 +6,11 @@ import (
 
 	"github.com/davecgh/go-spew/spew"
 
-	"chain/crypto/ed25519"
-	"chain/database/pg/pgtest"
-	"chain/errors"
-	"chain/protocol/bc/legacy"
-	"chain/testutil"
+	"github.com/chainmint/crypto/ed25519"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/testutil"
 )
 
 func TestMockHSMChainKDKeys(t *testing.T) {

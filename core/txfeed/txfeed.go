@@ -6,9 +6,9 @@ import (
 	"context"
 	"database/sql"
 
-	"chain/core/query"
-	"chain/database/pg"
-	"chain/errors"
+	"github.com/chainmint/core/query"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/errors"
 )
 
 var ErrDuplicateAlias = errors.New("duplicate feed alias")

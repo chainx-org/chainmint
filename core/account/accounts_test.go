@@ -7,13 +7,13 @@ import (
 	"testing"
 	"time"
 
-	"chain/crypto/ed25519/chainkd"
-	"chain/database/pg/pgtest"
-	"chain/errors"
-	"chain/protocol/bc"
-	"chain/protocol/prottest"
-	"chain/protocol/vm"
-	"chain/testutil"
+	"github.com/chainmint/crypto/ed25519/chainkd"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/prottest"
+	"github.com/chainmint/protocol/vm"
+	"github.com/chainmint/testutil"
 )
 
 func TestCreateAccount(t *testing.T) {

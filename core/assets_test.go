@@ -6,13 +6,13 @@ import (
 	"reflect"
 	"testing"
 
-	"chain/core/asset"
-	"chain/core/coretest"
-	"chain/core/pin"
-	"chain/core/query"
-	"chain/database/pg/pgtest"
-	"chain/protocol/prottest"
-	"chain/testutil"
+	"github.com/chainmint/core/asset"
+	"github.com/chainmint/core/coretest"
+	"github.com/chainmint/core/pin"
+	"github.com/chainmint/core/query"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/protocol/prottest"
+	"github.com/chainmint/testutil"
 )
 
 func TestUpdateAssetTags(t *testing.T) {

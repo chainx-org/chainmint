@@ -6,13 +6,13 @@ import (
 
 	"github.com/lib/pq"
 
-	"chain/core/query"
-	"chain/core/signers"
-	"chain/database/pg"
-	chainjson "chain/encoding/json"
-	"chain/errors"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
+	"github.com/chainmint/core/query"
+	"github.com/chainmint/core/signers"
+	"github.com/chainmint/database/pg"
+	chainjson "github.com/chainmint/encoding/json"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
 )
 
 const (

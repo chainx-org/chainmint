@@ -3,7 +3,7 @@ package filter
 import (
 	"testing"
 
-	"chain/testutil"
+	"github.com/chainmint/testutil"
 )
 
 type scannedTok struct {

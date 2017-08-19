@@ -5,9 +5,9 @@ import (
 	"math"
 	"time"
 
-	"chain/errors"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
 )
 
 func NewBuilder(maxTime time.Time) *TemplateBuilder {

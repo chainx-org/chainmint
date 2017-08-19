@@ -5,11 +5,11 @@ import (
 	"math"
 	"testing"
 
-	"chain/core/query/filter"
-	"chain/database/pg/pgtest"
-	"chain/errors"
-	"chain/protocol"
-	"chain/testutil"
+	"github.com/chainmint/core/query/filter"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol"
+	"github.com/chainmint/testutil"
 )
 
 func TestDecodeTxAfter(t *testing.T) {

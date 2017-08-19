@@ -4,10 +4,10 @@ import (
 	"context"
 	"testing"
 
-	"chain/database/pg/pgtest"
-	"chain/protocol/bc/bctest"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/prottest"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/protocol/bc/bctest"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/protocol/prottest"
 )
 
 func TestAnnotatedTxs(t *testing.T) {

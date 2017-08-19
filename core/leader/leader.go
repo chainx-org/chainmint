@@ -9,9 +9,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"chain/database/pg"
-	"chain/errors"
-	"chain/log"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/log"
 )
 
 // ProcessState is an enum describing the current state of the

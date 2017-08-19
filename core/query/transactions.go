@@ -8,8 +8,8 @@ import (
 	"math"
 	"strconv"
 
-	"chain/core/query/filter"
-	"chain/errors"
+	"github.com/chainmint/core/query/filter"
+	"github.com/chainmint/errors"
 )
 
 var (

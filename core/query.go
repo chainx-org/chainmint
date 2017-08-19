@@ -4,10 +4,10 @@ import (
 	"context"
 	"math"
 
-	"chain/core/query"
-	"chain/core/query/filter"
-	"chain/errors"
-	"chain/net/http/httpjson"
+	"github.com/chainmint/core/query"
+	"github.com/chainmint/core/query/filter"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/net/http/httpjson"
 )
 
 // listAccounts is an http handler for listing accounts matching

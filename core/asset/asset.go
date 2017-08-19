@@ -15,15 +15,15 @@ import (
 	"github.com/golang/groupcache/singleflight"
 	"github.com/lib/pq"
 
-	"chain/core/pin"
-	"chain/core/signers"
-	"chain/crypto/ed25519"
-	"chain/crypto/ed25519/chainkd"
-	"chain/database/pg"
-	"chain/errors"
-	"chain/protocol"
-	"chain/protocol/bc"
-	"chain/protocol/vmutil"
+	"github.com/chainmint/core/pin"
+	"github.com/chainmint/core/signers"
+	"github.com/chainmint/crypto/ed25519"
+	"github.com/chainmint/crypto/ed25519/chainkd"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/vmutil"
 )
 
 const maxAssetCache = 1000

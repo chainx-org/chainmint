@@ -11,11 +11,11 @@ import (
 
 	"github.com/lib/pq"
 
-	"chain/crypto/ed25519"
-	"chain/crypto/ed25519/chainkd"
-	"chain/database/pg"
-	"chain/errors"
-	"chain/protocol/bc/legacy"
+	"github.com/chainmint/crypto/ed25519"
+	"github.com/chainmint/crypto/ed25519/chainkd"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc/legacy"
 )
 
 // listKeyMaxAliases limits the alias filter to a sane maximum size.

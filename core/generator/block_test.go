@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"chain/database/pg/pgtest"
-	"chain/protocol/bc/legacy"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/protocol/bc/legacy"
 )
 
 func TestSavePendingBlock(t *testing.T) {

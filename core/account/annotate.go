@@ -7,10 +7,10 @@ import (
 
 	"github.com/lib/pq"
 
-	"chain/core/query"
-	"chain/database/pg"
-	"chain/errors"
-	"chain/protocol/bc"
+	"github.com/chainmint/core/query"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc"
 )
 
 var empty = json.RawMessage(`{}`)

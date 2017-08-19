@@ -5,11 +5,11 @@ import (
 	"testing"
 	"time"
 
-	"chain/core/query/filter"
-	"chain/database/pg/pgtest"
-	"chain/protocol"
-	"chain/protocol/bc"
-	"chain/testutil"
+	"github.com/chain/core/query/filter"
+	"github.com/chain/database/pg/pgtest"
+	"github.com/chain/protocol"
+	"github.com/chain/protocol/bc"
+	"github.com/chain/testutil"
 )
 
 func TestDecodeOutputsAfter(t *testing.T) {

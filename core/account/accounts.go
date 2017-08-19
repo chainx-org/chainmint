@@ -11,15 +11,15 @@ import (
 	"github.com/golang/groupcache/lru"
 	"github.com/lib/pq"
 
-	"chain/core/pin"
-	"chain/core/signers"
-	"chain/core/txbuilder"
-	"chain/crypto/ed25519/chainkd"
-	"chain/database/pg"
-	"chain/errors"
-	"chain/log"
-	"chain/protocol"
-	"chain/protocol/vmutil"
+	"github.com/chainmint/core/pin"
+	"github.com/chainmint/core/signers"
+	"github.com/chainmint/core/txbuilder"
+	"github.com/chainmint/crypto/ed25519/chainkd"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/log"
+	"github.com/chainmint/protocol"
+	"github.com/chainmint/protocol/vmutil"
 )
 
 const maxAccountCache = 1000

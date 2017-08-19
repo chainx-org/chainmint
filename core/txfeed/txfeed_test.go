@@ -4,10 +4,10 @@ import (
 	"context"
 	"testing"
 
-	"chain/core/query/filter"
-	"chain/database/pg/pgtest"
-	"chain/errors"
-	"chain/testutil"
+	"github.com/chainmint/core/query/filter"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/testutil"
 )
 
 func TestInsertTxFeed(t *testing.T) {

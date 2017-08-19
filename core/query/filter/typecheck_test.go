@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"chain/testutil"
+	"github.com/chainmint/testutil"
 )
 
 func TestTypeCheckInvalid(t *testing.T) {

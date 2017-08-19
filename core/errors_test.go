@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"chain/database/pg"
-	"chain/errors"
+	"github.com/chain/database/pg"
+	"github.com/chain/errors"
 )
 
 func TestErrorMapping(t *testing.T) {

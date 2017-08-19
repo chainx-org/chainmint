@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"chain/net/http/reqid"
+	"github.com/chainmint/net/http/reqid"
 )
 
 // POST /create-account-receiver

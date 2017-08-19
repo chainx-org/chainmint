@@ -5,10 +5,10 @@ import (
 	"testing"
 	"time"
 
-	"chain/database/pg/pgtest"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/prottest"
-	"chain/testutil"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/protocol/prottest"
+	"github.com/chainmint/testutil"
 )
 
 func TestCreatePin(t *testing.T) {

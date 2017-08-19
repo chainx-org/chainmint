@@ -12,9 +12,9 @@ import (
 	"regexp"
 	"time"
 
-	"chain/crypto/sha3pool"
-	"chain/database/pg"
-	"chain/errors"
+	"github.com/chainmint/crypto/sha3pool"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/errors"
 )
 
 const tokenSize = 32

@@ -6,16 +6,16 @@ import (
 	"testing"
 	"time"
 
-	"chain/core/account"
-	"chain/core/asset"
-	"chain/core/coretest"
-	"chain/core/generator"
-	"chain/core/pin"
-	"chain/core/txbuilder"
-	"chain/database/pg/pgtest"
-	"chain/protocol/bc"
-	"chain/protocol/prottest"
-	"chain/testutil"
+	"github.com/chainmint/core/account"
+	"github.com/chainmint/core/asset"
+	"github.com/chainmint/core/coretest"
+	"github.com/chainmint/core/generator"
+	"github.com/chainmint/core/pin"
+	"github.com/chainmint/core/txbuilder"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/prottest"
+	"github.com/chainmint/testutil"
 )
 
 func BenchmarkBuildTx(b *testing.B) {

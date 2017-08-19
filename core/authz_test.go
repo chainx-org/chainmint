@@ -11,9 +11,9 @@ import (
 	"strings"
 	"testing"
 
-	"chain/core/accesstoken"
-	"chain/database/pg/pgtest"
-	"chain/database/raft"
+	"github.com/chainmint/core/accesstoken"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/database/raft"
 )
 
 func TestAuthz(t *testing.T) {

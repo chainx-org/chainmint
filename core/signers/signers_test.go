@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"testing"
 
-	"chain/crypto/ed25519/chainkd"
-	"chain/database/pg"
-	"chain/database/pg/pgtest"
-	"chain/errors"
-	"chain/testutil"
+	"github.com/chainmint/crypto/ed25519/chainkd"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/testutil"
 )
 
 var dummyXPub = mustDecodeKey("48161b6ca79fe3ae248eaf1a32c66a07db901d81ec3f172b16d3ca8b0de37cd8c49975a24499c5d7a40708f4f13d5445cf87fed54ef5a4a5c47a7689a12e73f9")

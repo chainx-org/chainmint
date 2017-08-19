@@ -3,11 +3,11 @@ package txdb
 import (
 	"context"
 
-	"chain/database/pg"
-	"chain/errors"
-	"chain/protocol"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/state"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/protocol/state"
 )
 
 // A Store encapsulates storage for blockchain validation.

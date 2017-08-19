@@ -5,10 +5,10 @@ package config
 import (
 	"context"
 
-	"chain/core/mockhsm"
-	"chain/crypto/ed25519"
-	"chain/database/pg"
-	"chain/log"
+	"github.com/chainmint/core/mockhsm"
+	"github.com/chainmint/crypto/ed25519"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/log"
 )
 
 func getOrCreateDevKey(ctx context.Context, db pg.DB, c *Config) (blockPub ed25519.PublicKey, err error) {

@@ -9,11 +9,11 @@ import (
 	"sync/atomic"
 	"time"
 
-	"chain/core/rpc"
-	"chain/core/txdb"
-	"chain/errors"
-	"chain/protocol"
-	"chain/protocol/bc"
+	"github.com/chainmint/core/rpc"
+	"github.com/chainmint/core/txdb"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol"
+	"github.com/chainmint/protocol/bc"
 )
 
 // SnapshotProgress describes a snapshot being downloaded from a peer Core.

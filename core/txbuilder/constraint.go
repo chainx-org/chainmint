@@ -1,10 +1,10 @@
 package txbuilder
 
 import (
-	"chain/crypto/sha3pool"
-	"chain/protocol/bc"
-	"chain/protocol/vm"
-	"chain/protocol/vmutil"
+	"github.com/chainmint/crypto/sha3pool"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/vm"
+	"github.com/chainmint/protocol/vmutil"
 )
 
 // Constraint types express a constraint on an input of a proposed

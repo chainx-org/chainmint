@@ -5,7 +5,7 @@ import (
 	"sync"
 	"testing"
 
-	"chain/database/pg/pgtest"
+	"github.com/chainmint/database/pg/pgtest"
 )
 
 func TestFailover(t *testing.T) {

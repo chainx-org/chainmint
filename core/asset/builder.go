@@ -6,13 +6,13 @@ import (
 	"encoding/json"
 	"time"
 
-	"chain/core/signers"
-	"chain/core/txbuilder"
-	"chain/database/pg"
-	chainjson "chain/encoding/json"
-	"chain/errors"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
+	"github.com/chainmint/core/signers"
+	"github.com/chainmint/core/txbuilder"
+	"github.com/chainmint/database/pg"
+	chainjson "github.com/chainmint/encoding/json"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
 )
 
 func (reg *Registry) NewIssueAction(assetAmount bc.AssetAmount, referenceData chainjson.Map) txbuilder.Action {

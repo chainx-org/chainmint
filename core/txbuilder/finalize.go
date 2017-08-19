@@ -4,11 +4,11 @@ import (
 	"bytes"
 	"context"
 
-	"chain/core/rpc"
-	"chain/errors"
-	"chain/protocol"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/vm"
+	"github.com/chainmint/core/rpc"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/protocol/vm"
 )
 
 var (

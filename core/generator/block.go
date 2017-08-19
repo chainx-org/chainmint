@@ -6,16 +6,16 @@ import (
 	"sync"
 	"time"
 
-	"chain/crypto/ed25519"
-	"chain/database/pg"
-	"chain/database/sql"
-	"chain/errors"
-	"chain/log"
-	"chain/metrics"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/state"
-	"chain/protocol/vmutil"
+	"github.com/chainmint/crypto/ed25519"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/database/sql"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/log"
+	"github.com/chainmint/metrics"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/protocol/state"
+	"github.com/chainmint/protocol/vmutil"
 )
 
 // errTooFewSigners is returned when a block-signing attempt finds

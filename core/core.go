@@ -6,13 +6,13 @@ import (
 	"strings"
 	"time"
 
-	"chain/core/config"
-	"chain/core/fetch"
-	"chain/core/leader"
-	"chain/errors"
-	"chain/log"
-	"chain/net/http/httpjson"
-	"chain/protocol/bc"
+	"github.com/chainmint/core/config"
+	"github.com/chainmint/core/fetch"
+	"github.com/chainmint/core/leader"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/log"
+	"github.com/chainmint/net/http/httpjson"
+	"github.com/chainmint/protocol/bc"
 )
 
 var (

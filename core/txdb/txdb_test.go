@@ -5,11 +5,11 @@ import (
 	"context"
 	"testing"
 
-	"chain/database/pg/pgtest"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/state"
-	"chain/testutil"
+	"github.com/chainmint/database/pg/pgtest"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/protocol/state"
+	"github.com/chainmint/testutil"
 )
 
 func TestLatestSnapshot(t *testing.T) {
