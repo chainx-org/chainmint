@@ -1,7 +1,7 @@
 package chain
 
 import (
-	"github.com/chain/chain/protocol"
+	"github.com/chainmint/protocol"
 )
 
 type Backend struct {

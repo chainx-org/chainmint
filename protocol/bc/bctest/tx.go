@@ -9,12 +9,12 @@ import (
 
 	"golang.org/x/crypto/sha3"
 
-	"chain/crypto/ed25519/chainkd"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/vm"
-	"chain/protocol/vmutil"
-	"chain/testutil"
+	"github.com/chainmint/crypto/ed25519/chainkd"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/protocol/vm"
+	"github.com/chainmint/protocol/vmutil"
+	"github.com/chainmint/testutil"
 )
 
 // NewIssuanceTx creates a new signed, issuance transaction issuing 100 units

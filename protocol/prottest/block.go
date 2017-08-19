@@ -6,13 +6,13 @@ import (
 	"testing"
 	"time"
 
-	"chain/crypto/ed25519"
-	"chain/protocol"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/prottest/memstore"
-	"chain/protocol/state"
-	"chain/testutil"
+	"github.com/chainmint/crypto/ed25519"
+	"github.com/chainmint/protocol"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/protocol/prottest/memstore"
+	"github.com/chainmint/protocol/state"
+	"github.com/chainmint/testutil"
 )
 
 var (

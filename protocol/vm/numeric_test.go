@@ -5,7 +5,7 @@ import (
 	"math"
 	"testing"
 
-	"chain/testutil"
+	"github.com/chainmint/testutil"
 )
 
 func TestNumericOps(t *testing.T) {

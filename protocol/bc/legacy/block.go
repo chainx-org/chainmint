@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"io"
 
-	"chain/encoding/blockchain"
-	"chain/encoding/bufpool"
-	"chain/errors"
+	"github.com/chainmint/encoding/blockchain"
+	"github.com/chainmint/encoding/bufpool"
+	"github.com/chainmint/errors"
 )
 
 const (

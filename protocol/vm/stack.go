@@ -1,6 +1,6 @@
 package vm
 
-import "chain/math/checked"
+import "github.com/chainmint/math/checked"
 
 func opToAltStack(vm *virtualMachine) error {
 	err := vm.applyCost(2)

@@ -9,7 +9,7 @@ import (
 	"math"
 	"sync"
 
-	"chain/encoding/bufpool"
+	"github.com/chainmint/encoding/bufpool"
 )
 
 var bufPool = sync.Pool{New: func() interface{} { return new([9]byte) }}

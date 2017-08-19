@@ -3,10 +3,10 @@ package validation
 import (
 	"fmt"
 
-	"chain/errors"
-	"chain/math/checked"
-	"chain/protocol/bc"
-	"chain/protocol/vm"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/math/checked"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/vm"
 )
 
 // validationState contains the context that must propagate through

@@ -6,11 +6,11 @@ import (
 	"testing"
 	"time"
 
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/prottest/memstore"
-	"chain/protocol/state"
-	"chain/testutil"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/protocol/prottest/memstore"
+	"github.com/chainmint/protocol/state"
+	"github.com/chainmint/testutil"
 )
 
 func TestRecoverSnapshotNoAdditionalBlocks(t *testing.T) {

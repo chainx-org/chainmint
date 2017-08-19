@@ -43,6 +43,7 @@ imports:
   - leveldb/storage
   - leveldb/table
   - leveldb/util
+- name: github.com/golang/groupcache
 - name: github.com/tendermint/abci
   version: 864d1f80b36b440bde030a5c18d8ac3aa8c2949d
   subpackages:

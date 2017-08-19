@@ -22,9 +22,9 @@ package patricia
 import (
 	"bytes"
 
-	"chain/crypto/sha3pool"
-	"chain/errors"
-	"chain/protocol/bc"
+	"github.com/chainmint/crypto/sha3pool"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc"
 )
 
 var (

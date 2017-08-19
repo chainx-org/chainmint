@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"testing"
 
-	"chain/errors"
-	"chain/math/checked"
-	"chain/testutil"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/math/checked"
+	"github.com/chainmint/testutil"
 )
 
 func TestParseOp(t *testing.T) {

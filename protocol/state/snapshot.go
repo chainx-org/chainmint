@@ -3,9 +3,9 @@ package state
 import (
 	"fmt"
 
-	"chain/errors"
-	"chain/protocol/bc"
-	"chain/protocol/patricia"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/patricia"
 )
 
 // Snapshot encompasses a snapshot of entire blockchain state. It

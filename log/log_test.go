@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"chain/errors"
+	"github.com/chainmint/errors"
 )
 
 func TestSetOutput(t *testing.T) {

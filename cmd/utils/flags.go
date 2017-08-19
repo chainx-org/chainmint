@@ -41,11 +41,4 @@ var (
 		Name:  "config",
 		Usage: "TOML configuration file",
 	}
-
-	// TargetGasLimitFlag defines gas limit of the Genesis block
-	TargetGasLimitFlag = cli.Uint64Flag{
-		Name:  "targetgaslimit",
-		Usage: "Target gas limit sets the artificial target gas floor for the blocks to mine",
-		Value: GenesisGasLimit.Uint64(),
-	}
 )

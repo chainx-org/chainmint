@@ -3,7 +3,7 @@ package vm
 import (
 	"testing"
 
-	"chain/testutil"
+	"github.com/chainmint/testutil"
 )
 
 func TestControlOps(t *testing.T) {

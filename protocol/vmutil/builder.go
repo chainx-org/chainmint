@@ -1,6 +1,6 @@
 package vmutil
 
-import "chain/protocol/vm"
+import "github.com/chainmint/protocol/vm"
 
 type Builder struct {
 	Program []byte

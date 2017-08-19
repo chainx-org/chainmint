@@ -8,10 +8,10 @@ import (
 	"io"
 	"time"
 
-	"chain/encoding/blockchain"
-	"chain/encoding/bufpool"
-	"chain/errors"
-	"chain/protocol/bc"
+	"github.com/chainmint/encoding/blockchain"
+	"github.com/chainmint/encoding/bufpool"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc"
 )
 
 // BlockHeader describes necessary data of the block.

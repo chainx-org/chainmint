@@ -1,6 +1,6 @@
 package errors_test
 
-import "chain/errors"
+import "github.com/chainmint/errors"
 
 var ErrInvalidKey = errors.New("invalid key")
 

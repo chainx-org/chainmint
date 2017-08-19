@@ -5,7 +5,7 @@ import (
 	"io"
 	"testing"
 
-	"chain/protocol/bc"
+	"github.com/chainmint/protocol/bc"
 )
 
 func serialize(t *testing.T, wt io.WriterTo) []byte {

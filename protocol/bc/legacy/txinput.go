@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"io"
 
-	"chain/encoding/blockchain"
-	"chain/errors"
-	"chain/protocol/bc"
+	"github.com/chainmint/encoding/blockchain"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc"
 )
 
 type (

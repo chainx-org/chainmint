@@ -2,12 +2,12 @@ package app
 
 import (
 	"encoding/json"
-	"fmt"
-	"math/big"
+//	"fmt"
+//	"math/big"
 
-	"github.com/chain/chain/protocol/state"
+	"github.com/chainmint/protocol/state"
 	"github.com/chainmint/chain"
-	"github.com/chain/chain/core/rpc"
+	//"github.com/chainmint/core/rpc"
 	abciTypes "github.com/tendermint/abci/types"
 
 	emtTypes "github.com/tendermint/ethermint/types"

@@ -3,8 +3,8 @@ package app
 import (
 	"bytes"
 	"encoding/json"
-	github.com/chain/encoding/blockchain
-	github.com/chain/protocol/bc/legacy
+	"github.com/chainmint/encoding/blockchain"
+	"github.com/chainmint/protocol/bc/legacy"
 
 	abciTypes "github.com/tendermint/abci/types"
 )

@@ -10,9 +10,9 @@ import (
 
 	"github.com/davecgh/go-spew/spew"
 
-	"chain/errors"
-	"chain/protocol/bc"
-	"chain/testutil"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/testutil"
 )
 
 func TestTransactionTrailingGarbage(t *testing.T) {

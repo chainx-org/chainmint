@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"chain/protocol/bc"
-	"chain/protocol/bc/bctest"
-	"chain/protocol/bc/legacy"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/bctest"
+	"github.com/chainmint/protocol/bc/legacy"
 )
 
 func TestApplyTxSpend(t *testing.T) {

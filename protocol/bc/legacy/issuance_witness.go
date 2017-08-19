@@ -1,6 +1,6 @@
 package legacy
 
-import "chain/protocol/bc"
+import "github.com/chainmint/protocol/bc"
 
 type IssuanceWitness struct {
 	InitialBlock    bc.Hash

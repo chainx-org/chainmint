@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"io"
 
-	"chain/crypto/sha3pool"
-	"chain/encoding/blockchain"
-	"chain/errors"
-	"chain/protocol/bc"
+	"github.com/chainmint/crypto/sha3pool"
+	"github.com/chainmint/encoding/blockchain"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc"
 )
 
 // CurrentTransactionVersion is the current latest

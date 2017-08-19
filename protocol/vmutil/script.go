@@ -1,9 +1,9 @@
 package vmutil
 
 import (
-	"chain/crypto/ed25519"
-	"chain/errors"
-	"chain/protocol/vm"
+	"github.com/chainmint/crypto/ed25519"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/vm"
 )
 
 var (

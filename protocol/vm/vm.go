@@ -6,7 +6,7 @@ import (
 	"io"
 	"strings"
 
-	"chain/errors"
+	"github.com/chainmint/errors"
 )
 
 const initialRunLimit = 10000

@@ -9,7 +9,7 @@ import (
 	"testing"
 	"testing/quick"
 
-	"chain/testutil"
+	"github.com/chainmint/testutil"
 )
 
 func BenchmarkReadVarint31(b *testing.B) {

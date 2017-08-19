@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"testing"
 
-	"chain/errors"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/vm"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/protocol/vm"
 )
 
 func TestCheckOutput(t *testing.T) {

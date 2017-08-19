@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"time"
 
-	"chain/crypto/ed25519"
-	"chain/errors"
-	"chain/log"
-	"chain/protocol/bc"
-	"chain/protocol/bc/legacy"
-	"chain/protocol/state"
-	"chain/protocol/validation"
-	"chain/protocol/vmutil"
+	"github.com/chainmint/crypto/ed25519"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/log"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
+	"github.com/chainmint/protocol/state"
+	"github.com/chainmint/protocol/validation"
+	"github.com/chainmint/protocol/vmutil"
 )
 
 // maxBlockTxs limits the number of transactions

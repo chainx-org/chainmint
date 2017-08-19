@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"chain/errors"
+	"github.com/chainmint/errors"
 )
 
 var wd, _ = os.Getwd()
