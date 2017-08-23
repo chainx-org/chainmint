@@ -5,8 +5,8 @@ import (
 
 	"github.com/golang/protobuf/proto"
 
-	"chain/database/raft/internal/statepb"
-	"chain/errors"
+	"github.com/chainmint/database/raft/internal/statepb"
+	"github.com/chainmint/errors"
 )
 
 const nextNodeID = "raft/nextNodeID"

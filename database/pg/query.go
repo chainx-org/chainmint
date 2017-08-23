@@ -4,7 +4,7 @@ import (
 	"context"
 	"reflect"
 
-	"chain/errors"
+	"github.com/chainmint/errors"
 )
 
 var ErrBadRequest = errors.New("bad request")

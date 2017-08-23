@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/chainmint/crypto/ed25519/chainkd"
-	chainjson "chain/encoding/json"
+	chainjson "github.com/chainmint/encoding/json"
 	"github.com/chainmint/protocol/bc"
 	"github.com/chainmint/protocol/bc/legacy"
 	"github.com/chainmint/protocol/vmutil"

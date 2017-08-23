@@ -27,9 +27,9 @@ import (
 	"github.com/coreos/etcd/wal"
 	"github.com/coreos/etcd/wal/walpb"
 
-	"chain/database/raft/state"
-	"chain/errors"
-	"chain/log"
+	"github.com/chainmint/database/raft/state"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/log"
 )
 
 var ErrUnsatisfied = errors.New("precondition not satisfied")

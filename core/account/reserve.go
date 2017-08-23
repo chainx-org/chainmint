@@ -8,12 +8,12 @@ import (
 	"sync/atomic"
 	"time"
 
-	"chain/core/pin"
-	"chain/database/pg"
-	"chain/errors"
-	"chain/protocol"
-	"chain/protocol/bc"
-	"chain/sync/idempotency"
+	"github.com/chainmint/core/pin"
+	"github.com/chainmint/database/pg"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/sync/idempotency"
 )
 
 var (

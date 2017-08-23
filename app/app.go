@@ -9,7 +9,8 @@ import (
 
 	"github.com/chainmint/protocol/state"
 	"github.com/chainmint/core/rpc"
-	"github.com/chainmint/protocol"
+	//"github.com/chainmint/protocol"
+	"github.com/chainmint/core"
 	"github.com/chainmint/protocol/bc/legacy"
 	"github.com/chainmint/log"
 	//"github.com/chainmint/protocol/bc"
@@ -23,7 +24,7 @@ type ChainmintApplication struct {
 
 	// backend handles the chain state machine
 	// and wrangles other services started by an chain node (eg. tx pool)
-	backend *protocol.Chain // backend chain struct
+	backend *core.API // backend chain struct
 
 	// a closure to return the latest current state from the chain
 	currentState func() (*legacy.Block, *state.Snapshot)
@@ -36,12 +37,12 @@ type ChainmintApplication struct {
 }
 
 // NewChainmintApplication creates the abci application for Chainmint
-func NewChainmintApplication(backend *protocol.Chain,
+func NewChainmintApplication(backend *core.API,
 	client *rpc.Client, strategy *cmtTypes.Strategy) (*ChainmintApplication, error) {
 	app := &ChainmintApplication{
 		backend:      backend,
 		rpcClient:    client,
-		currentState: backend.State,
+		currentState: backend.chain.State,
 		strategy:     strategy,
 	}
 

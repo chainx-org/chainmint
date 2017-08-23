@@ -6,11 +6,11 @@ import (
 	"context"
 	"time"
 
-	"github.com/chain/crypto/ed25519/chainkd"
-	"github.com/chain/errors"
-	"github.com/chain/math/checked"
-	"github.com/chain/protocol/bc"
-	"github.com/chain/protocol/bc/legacy"
+	"github.com/chainmint/crypto/ed25519/chainkd"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/math/checked"
+	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol/bc/legacy"
 )
 
 var (

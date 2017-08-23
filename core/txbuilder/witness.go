@@ -11,7 +11,7 @@ import (
 	"github.com/chainmint/errors"
 	"github.com/chainmint/protocol/bc"
 	"github.com/chainmint/protocol/vm"
-	"chain/protocol/vmutil"
+	"github.com/chainmint/protocol/vmutil"
 )
 
 // SignFunc is the function passed into Sign that produces
