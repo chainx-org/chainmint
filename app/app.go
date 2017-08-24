@@ -42,7 +42,7 @@ func NewChainmintApplication(backend *core.API,
 	app := &ChainmintApplication{
 		backend:      backend,
 		rpcClient:    client,
-		currentState: backend.chain.State,
+		currentState: backend.Chain().State,
 		strategy:     strategy,
 	}
 
