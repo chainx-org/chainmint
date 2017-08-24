@@ -14,7 +14,7 @@ import (
 	"github.com/chainmint/log"
 	"github.com/chainmint/protocol"
 	"github.com/chainmint/protocol/bc/legacy"
-	"github.com/chain/protocol/state"
+	"github.com/chainmint/protocol/state"
 )
 
 const heightPollingPeriod = 3 * time.Second

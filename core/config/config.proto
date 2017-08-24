@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package config;
 
-import "chain/protocol/bc/bc.proto";
+import "github.com/chainmint/protocol/bc/bc.proto";
 
 message Config {	
 	string id = 1;

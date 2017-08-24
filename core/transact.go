@@ -10,7 +10,7 @@ import (
 	"github.com/chainmint/core/leader"
 	"github.com/chainmint/core/txbuilder"
 	"github.com/chainmint/database/pg"
-	chainjson "github.com/chain/encoding/json"
+	chainjson "github.com/chainmint/encoding/json"
 	"github.com/chainmint/errors"
 	"github.com/chainmint/log"
 	"github.com/chainmint/net/http/httperror"

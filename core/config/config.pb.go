@@ -17,7 +17,7 @@ package config
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
-import bc "chain/protocol/bc"
+import bc "github.com/chainmint/protocol/bc"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal

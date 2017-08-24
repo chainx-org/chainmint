@@ -6,7 +6,7 @@ import (
 	"net"
 	"net/http"
 
-	"chain/errors"
+	"github.com/chainmint/errors"
 )
 
 func verifyTLSName(addr string, client *http.Client) error {

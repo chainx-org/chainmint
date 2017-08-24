@@ -8,9 +8,9 @@ import (
 
 	"github.com/lib/pq"
 
-	"github.com/chain/core/query/filter"
-	"github.com/chain/errors"
-	"github.com/chain/protocol/bc"
+	"github.com/chainmint/core/query/filter"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/protocol/bc"
 )
 
 var defaultOutputsAfter = OutputsAfter{

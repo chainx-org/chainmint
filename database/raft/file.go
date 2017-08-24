@@ -4,7 +4,7 @@ import (
 	"io"
 	"os"
 
-	"chain/errors"
+	"github.com/chainmint/errors"
 )
 
 // writeFile is like ioutil.WriteFile, but it writes safely and atomically.

@@ -89,6 +89,10 @@ type API struct {
 	healthErrors map[string]string
 }
 
+func (a *API) Chain() *protocol.Chain {
+	return a.chain
+}
+
 func (a *API) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	a.handler.ServeHTTP(rw, req)
 }

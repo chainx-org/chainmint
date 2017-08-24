@@ -6,9 +6,9 @@ import (
 
 	"github.com/lib/pq"
 
-	"chain/errors"
-	"chain/log"
-	"chain/net"
+	"github.com/chainmint/errors"
+	"github.com/chainmint/log"
+	"github.com/chainmint/net"
 )
 
 // NewListener creates a new pq.Listener and begins listening.
