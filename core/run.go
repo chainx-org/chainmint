@@ -23,7 +23,7 @@ import (
 	"github.com/chainmint/core/txdb"
 	"github.com/chainmint/core/txfeed"
 	"github.com/chainmint/database/pg"
-	"github.com/chainmint/database/raft"
+	//"github.com/chainmint/database/raft"
 	"github.com/chainmint/log"
 	"github.com/chainmint/protocol"
 	"github.com/chainmint/protocol/bc/legacy"
@@ -121,20 +121,20 @@ func RateLimit(keyFn func(*http.Request) string, burst, perSecond int) RunOption
 // used for Chain Core Developer Edition to expose the configuration UI
 // in the dashboard. API authentication still applies to an unconfigured
 // Chain Core.
-func RunUnconfigured(ctx context.Context, db pg.DB, raftDB *raft.Service, routableAddress string, opts ...RunOption) *API {
+func RunUnconfigured(ctx context.Context, db pg.DB, routableAddress string, opts ...RunOption) *API {
 	a := &API{
 		db:           db,
-		raftDB:       raftDB,
 		accessTokens: &accesstoken.CredentialStore{DB: db},
 		mux:          http.NewServeMux(),
 	}
 	for _, opt := range opts {
 		opt(a)
 	}
-	err := a.addAllowedMember(ctx, struct{ Addr string }{routableAddress})
+/*	err := a.addAllowedMember(ctx, struct{ Addr string }{routableAddress})
 	if err != nil {
 		panic("failed to add self to member list: " + err.Error())
 	}
+	*/
 
 	// Construct the complete http.Handler once.
 	a.buildHandler()
@@ -154,7 +154,7 @@ func Run(
 	conf *config.Config,
 	db pg.DB,
 	dbURL string,
-	raftDB *raft.Service,
+//	raftDB *raft.Service,
 	c *protocol.Chain,
 	store *txdb.Store,
 	routableAddress string,
@@ -187,7 +187,7 @@ func Run(
 		accessTokens: &accesstoken.CredentialStore{DB: db},
 		config:       conf,
 		db:           db,
-		raftDB:       raftDB,
+//		raftDB:       raftDB,
 		mux:          http.NewServeMux(),
 		addr:         routableAddress,
 	}
@@ -216,10 +216,11 @@ func Run(
 	// leader-only Core duties.
 	a.leader = leader.Run(ctx, db, routableAddress, a.lead)
 
-	err = a.addAllowedMember(ctx, struct{ Addr string }{routableAddress})
+	/*err = a.addAllowedMember(ctx, struct{ Addr string }{routableAddress})
 	if err != nil {
 		return nil, err
 	}
+	*/
 
 	// Construct the complete http.Handler once.
 	a.buildHandler()

@@ -99,8 +99,9 @@ imports:
 - name: github.com/beorn7/perks
 - name: github.com/prometheus/common
 - name: github.com/prometheus/procfs
-- name: github.com/matttproud/golang_protbuf_extensions
 - name: github.com/prometheus/client_model
+- name: github.com/kr/secureheader
+- name: github.com/matttproud/golang_protobuf_extensions
 - name: google.golang.org/genproto
   version: aa2eb687b4d3e17154372564ad8d6bf11c3cf21f
   subpackages:

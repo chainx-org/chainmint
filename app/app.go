@@ -8,7 +8,7 @@ import (
 //	"math/big"
 
 	"github.com/chainmint/protocol/state"
-//	"github.com/chainmint/core/rpc"
+	"github.com/chainmint/core/rpc"
 	//"github.com/chainmint/protocol"
 	"github.com/chainmint/core"
 	"github.com/chainmint/protocol/bc/legacy"
@@ -50,10 +50,10 @@ func NewChainmintApplication(/*backend *core.API,
 	return app, errors.New("OK")
 }
 
-func (app *ChainmintApplication) Init(backend *core.API, client rpc.Client) {
+func (app *ChainmintApplication) Init(backend *core.API/*, client *rpc.Client*/) {
 	app.backend = backend
 	app.currentState = backend.Chain().State
-	app.rpcClient = client
+//	app.rpcClient = client
 }
 
 // Info returns information about the last height and app_hash to the tendermint engine
