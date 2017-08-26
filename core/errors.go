@@ -85,7 +85,7 @@ var errorFormatter = httperror.Formatter{
 		config.ErrNoBlockHSMURL:        {400, "CH111", "Block HSM URL cannot be empty when configuring a non mockhsm signer"},
 		errNoClientTokens:              {400, "CH120", "Cannot enable client authentication with no client tokens"},
 		blocksigner.ErrConsensusChange: {400, "CH150", "Refuse to sign block with consensus change"},
-		errMissingAddr:                 {400, "CH160", "Address is missing"},
+		//errMissingAddr:                 {400, "CH160", "Address is missing"},
 
 		// Signers error namespace (2xx)
 		signers.ErrBadQuorum: {400, "CH200", "Quorum must be greater than 1 and less than or equal to the length of xpubs"},
@@ -98,10 +98,11 @@ var errorFormatter = httperror.Formatter{
 		accesstoken.ErrBadID:       {400, "CH300", "Malformed or empty access token id"},
 		accesstoken.ErrBadType:     {400, "CH301", "Access tokens must be type client or network"},
 		accesstoken.ErrDuplicateID: {400, "CH302", "Access token id is already in use"},
-		errMissingTokenID:          {400, "CH303", "Access token id does not exist"},
+		/*errMissingTokenID:          {400, "CH303", "Access token id does not exist"},
 		errCurrentToken:            {400, "CH310", "The access token used to authenticate this request cannot be deleted"},
 		errProtectedGrant:          {400, "CH320", "Protected grants cannot be manually deleted"},
 		errCreateProtectedGrant:    {400, "CH321", "Protected grants cannot be manually created"},
+		*/
 
 		// Query error namespace (6xx)
 		query.ErrBadAfter:               {400, "CH600", "Malformed pagination parameter `after`"},

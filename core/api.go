@@ -3,8 +3,8 @@ package core
 
 import (
 	"context"
-	"crypto/tls"
-	"crypto/x509"
+	//"crypto/tls"
+	//"crypto/x509"
 	"crypto/x509/pkix"
 	"expvar"
 	"fmt"
@@ -27,19 +27,20 @@ import (
 	"github.com/chainmint/core/txdb"
 	"github.com/chainmint/core/txfeed"
 	"github.com/chainmint/database/pg"
-	"github.com/chainmint/database/raft"
+//	"github.com/chainmint/database/raft"
 	"github.com/chainmint/encoding/json"
 	"github.com/chainmint/errors"
 	"github.com/chainmint/generated/dashboard"
-	"github.com/chainmint/log"
-	"github.com/chainmint/net/http/authn"
-	"github.com/chainmint/net/http/authz"
+	//"github.com/chainmint/log"
+	//"github.com/chainmint/net/http/authn"
+	//"github.com/chainmint/net/http/authz"
 	"github.com/chainmint/net/http/gzip"
 	"github.com/chainmint/net/http/httpjson"
 	"github.com/chainmint/net/http/limit"
 	"github.com/chainmint/net/http/static"
 	"github.com/chainmint/protocol"
 	"github.com/chainmint/protocol/bc/legacy"
+	//"github.com/chainmint/app"
 )
 
 const (
@@ -68,7 +69,7 @@ type API struct {
 	config          *config.Config
 	submitter       txbuilder.Submitter
 	db              pg.DB
-	raftDB          *raft.Service
+	//app             *app.ChainmintApplication
 	mux             *http.ServeMux
 	handler         http.Handler
 	leader          leaderProcess
@@ -176,13 +177,13 @@ func (a *API) buildHandler() {
 		}
 	}))
 
-	m.Handle("/list-authorization-grants", jsonHandler(a.listGrants))
-	m.Handle("/create-authorization-grant", jsonHandler(a.createGrant))
-	m.Handle("/delete-authorization-grant", jsonHandler(a.deleteGrant))
-	m.Handle("/create-access-token", jsonHandler(a.createAccessToken))
-	m.Handle("/list-access-tokens", jsonHandler(a.listAccessTokens))
-	m.Handle("/delete-access-token", jsonHandler(a.deleteAccessToken))
-	m.Handle("/add-allowed-member", jsonHandler(a.addAllowedMember))
+	//m.Handle("/list-authorization-grants", jsonHandler(a.listGrants))
+	//m.Handle("/create-authorization-grant", jsonHandler(a.createGrant))
+	//m.Handle("/delete-authorization-grant", jsonHandler(a.deleteGrant))
+	//m.Handle("/create-access-token", jsonHandler(a.createAccessToken))
+	//m.Handle("/list-access-tokens", jsonHandler(a.listAccessTokens))
+	//m.Handle("/delete-access-token", jsonHandler(a.deleteAccessToken))
+	//m.Handle("/add-allowed-member", jsonHandler(a.addAllowedMember))
 	m.Handle("/configure", jsonHandler(a.configure))
 	m.Handle("/info", jsonHandler(a.info))
 
@@ -254,6 +255,7 @@ type page struct {
 	LastPage bool         `json:"last_page"`
 }
 
+/*
 func AuthHandler(handler http.Handler, rDB *raft.Service, accessTokens *accesstoken.CredentialStore, tlsConfig *tls.Config) http.Handler {
 	authorizer := authz.NewAuthorizer(rDB, GrantPrefix, policyByRoute)
 
@@ -286,6 +288,7 @@ func AuthHandler(handler http.Handler, rDB *raft.Service, accessTokens *accessto
 		handler.ServeHTTP(rw, req)
 	})
 }
+*/
 
 // timeoutContextHandler propagates the timeout, if any, provided as a header
 // in the http request.
