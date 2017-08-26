@@ -2,7 +2,6 @@ package app
 
 import (
 	"encoding/json"
-	"errors"
 	"context"
 //	"fmt"
 //	"math/big"
@@ -38,7 +37,7 @@ type ChainmintApplication struct {
 
 // NewChainmintApplication creates the abci application for Chainmint
 func NewChainmintApplication(/*backend *core.API,
-	client *rpc.Client,*/ strategy *cmtTypes.Strategy) (*ChainmintApplication, error) {
+	client *rpc.Client,*/ strategy *cmtTypes.Strategy) *ChainmintApplication {
 	app := &ChainmintApplication{
 //		backend:      backend,
 //		rpcClient:    client,
@@ -47,7 +46,7 @@ func NewChainmintApplication(/*backend *core.API,
 	}
 
 	//err := app.backend.ResetWork(app.Receiver()) // init the block results
-	return app, errors.New("OK")
+	return app
 }
 
 func (app *ChainmintApplication) Init(backend *core.API/*, client *rpc.Client*/) {
