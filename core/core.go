@@ -42,6 +42,7 @@ func (a *API) reset(ctx context.Context, req struct {
 }
 
 func (a *API) info(ctx context.Context) (map[string]interface{}, error) {
+	log.Printf(ctx, "-----info----")
 	if a.config == nil {
 		// never configured
 		return map[string]interface{}{
