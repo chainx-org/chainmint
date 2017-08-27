@@ -13,6 +13,7 @@ import (
 	"github.com/chainmint/log"
 	"github.com/chainmint/net/http/httpjson"
 	"github.com/chainmint/protocol/bc"
+	ctypes "github.com/tendermint/tendermint/rpc/core/types"
 )
 
 var (
@@ -43,6 +44,12 @@ func (a *API) reset(ctx context.Context, req struct {
 
 func (a *API) info(ctx context.Context) (map[string]interface{}, error) {
 	log.Printf(ctx, "-----info----")
+	result := new(ctypes.ResultStatus)
+	_, err := a.client.Call("status", map[string]interface{}{}, result)
+	if err != nil {
+		log.Error(ctx, err)
+	}
+	log.Printf(ctx, "tendermint latest block height:%d", result.LatestBlockHeight)
 	if a.config == nil {
 		// never configured
 		return map[string]interface{}{
