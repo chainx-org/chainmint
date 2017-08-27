@@ -7,7 +7,6 @@ import (
 //	"math/big"
 
 	"github.com/chainmint/protocol/state"
-	"github.com/chainmint/core/rpc"
 	//"github.com/chainmint/protocol"
 	"github.com/chainmint/core"
 	"github.com/chainmint/protocol/bc/legacy"
@@ -28,31 +27,21 @@ type ChainmintApplication struct {
 	// a closure to return the latest current state from the chain
 	currentState func() (*legacy.Block, *state.Snapshot)
 
-	// an chain rpc client we can forward queries to
-	rpcClient *rpc.Client
-
 	// strategy for validator compensation
 	strategy *cmtTypes.Strategy
 }
 
 // NewChainmintApplication creates the abci application for Chainmint
-func NewChainmintApplication(/*backend *core.API,
-	client *rpc.Client,*/ strategy *cmtTypes.Strategy) *ChainmintApplication {
+func NewChainmintApplication(strategy *cmtTypes.Strategy) *ChainmintApplication {
 	app := &ChainmintApplication{
-//		backend:      backend,
-//		rpcClient:    client,
-//		currentState: backend.Chain().State,
 		strategy:     strategy,
 	}
-
-	//err := app.backend.ResetWork(app.Receiver()) // init the block results
 	return app
 }
 
 func (app *ChainmintApplication) Init(backend *core.API/*, client *rpc.Client*/) {
 	app.backend = backend
 	app.currentState = backend.Chain().State
-//	app.rpcClient = client
 }
 
 // Info returns information about the last height and app_hash to the tendermint engine
