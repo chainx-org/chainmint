@@ -273,7 +273,6 @@ func Run(app *app.ChainmintApplication) {
 
 	// block forever without using any resources so this process won't quit while
 	// the goroutine containing ListenAndServe is still working
-	select {}
 }
 
 // maybeUseTLS loads the TLS cert and key (if so configured)
