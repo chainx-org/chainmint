@@ -27,11 +27,13 @@ import (
 	"github.com/chainmint/log"
 	"github.com/chainmint/protocol"
 	"github.com/chainmint/protocol/bc/legacy"
+	rpcClient "github.com/tendermint/tendermint/rpc/lib/client"
 )
 
 const (
 	blockPeriod              = time.Second
 	expireReservationsPeriod = time.Second
+	tendermintLAddr          = "tcp://0.0.0.0:46657"
 )
 
 // RunOption describes a runtime configuration option.
@@ -126,6 +128,7 @@ func RunUnconfigured(ctx context.Context, db pg.DB, routableAddress string, opts
 		db:           db,
 		accessTokens: &accesstoken.CredentialStore{DB: db},
 		mux:          http.NewServeMux(),
+		client:       rpcClient.NewURIClient(tendermintLAddr),
 	}
 	for _, opt := range opts {
 		opt(a)

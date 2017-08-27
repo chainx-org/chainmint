@@ -40,6 +40,7 @@ import (
 	"github.com/chainmint/net/http/static"
 	"github.com/chainmint/protocol"
 	"github.com/chainmint/protocol/bc/legacy"
+	rpcClient "github.com/tendermint/tendermint/rpc/lib/client"
 	//"github.com/chainmint/app"
 )
 
@@ -69,7 +70,7 @@ type API struct {
 	config          *config.Config
 	submitter       txbuilder.Submitter
 	db              pg.DB
-	//app             *app.ChainmintApplication
+	client rpcClient.HTTPClient
 	mux             *http.ServeMux
 	handler         http.Handler
 	leader          leaderProcess
