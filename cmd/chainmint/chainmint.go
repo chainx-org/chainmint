@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"flag"
 //	"strings"
 //	"gopkg.in/urfave/cli.v1"
 
@@ -12,11 +13,6 @@ import (
 	"github.com/chainmint/chain"
 	"github.com/tendermint/abci/server"
 	cmn "github.com/tendermint/tmlibs/common"
-)
-
-const (
-	addr = "tcp://127.0.0.1:46658"
-	abci = "grpc"
 )
 
 func chainmintCmd(/*ctx *cli.Context*/) error {
@@ -33,7 +29,10 @@ func chainmintCmd(/*ctx *cli.Context*/) error {
 	chainApp := abciApp.NewChainmintApplication( nil)
 	// Start the app on the ABCI server
 	chain.Run(chainApp)
-	srv, err := server.NewServer(addr, abci, chainApp)
+
+    addrPtr := flag.String("addr", "tcp://0.0.0.0:46658", "Listen address")
+	abciPtr := flag.String("abci", "socket", "socket | grpc")
+	srv, err := server.NewServer(*addrPtr, *abciPtr, chainApp)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)

@@ -156,6 +156,7 @@ func (app *ChainmintApplication) Query(query abciTypes.RequestQuery) abciTypes.R
 	}*/
 
 	bytes, _ := json.Marshal(result)
+	bytes = []byte("")
 /*	bytes, err := json.Marshal(result)
 	if err != nil {
 		return abciTypes.ResponseQuery{Code: abciTypes.ErrInternalError.Code, Log: err.Error()}
