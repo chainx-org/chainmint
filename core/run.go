@@ -4,7 +4,7 @@ import (
 	"context"
 	"crypto/tls"
 	"crypto/x509"
-	"errors"
+	//"errors"
 	"net"
 	"net/http"
 	"time"
@@ -12,10 +12,10 @@ import (
 	"github.com/chainmint/core/accesstoken"
 	"github.com/chainmint/core/account"
 	"github.com/chainmint/core/asset"
-	"github.com/chainmint/core/config"
-	"github.com/chainmint/core/fetch"
+	//"github.com/chainmint/core/config"
+	//"github.com/chainmint/core/fetch"
 	"github.com/chainmint/core/generator"
-	"github.com/chainmint/core/leader"
+	//"github.com/chainmint/core/leader"
 	"github.com/chainmint/core/pin"
 	"github.com/chainmint/core/query"
 	"github.com/chainmint/core/rpc"
@@ -24,7 +24,7 @@ import (
 	"github.com/chainmint/core/txfeed"
 	"github.com/chainmint/database/pg"
 	//"github.com/chainmint/database/raft"
-	"github.com/chainmint/log"
+	//"github.com/chainmint/log"
 	"github.com/chainmint/protocol"
 	"github.com/chainmint/protocol/bc/legacy"
 	rpcClient "github.com/tendermint/tendermint/rpc/lib/client"
@@ -154,15 +154,12 @@ func RunUnconfigured(ctx context.Context, db pg.DB, routableAddress string, opts
 // required.
 func Run(
 	ctx context.Context,
-	conf *config.Config,
 	db pg.DB,
 	dbURL string,
-//	raftDB *raft.Service,
 	c *protocol.Chain,
 	store *txdb.Store,
 	routableAddress string,
-	opts ...RunOption,
-) (*API, error) {
+	opts ...RunOption) (*API, error) {
 	// Set up the pin store for block processing
 	pinStore := pin.NewStore(db)
 	err := pinStore.LoadAll(ctx)
@@ -188,18 +185,17 @@ func Run(
 		txFeeds:      &txfeed.Tracker{DB: db},
 		indexer:      indexer,
 		accessTokens: &accesstoken.CredentialStore{DB: db},
-		config:       conf,
 		db:           db,
-//		raftDB:       raftDB,
+		client:       rpcClient.NewURIClient(tendermintLAddr),
 		mux:          http.NewServeMux(),
 		addr:         routableAddress,
 	}
 	for _, opt := range opts {
 		opt(a)
 	}
-	if a.remoteGenerator == nil && a.generator == nil {
+	/*if a.remoteGenerator == nil && a.generator == nil {
 		return nil, errors.New("no generator configured")
-	}
+	}*/
 
 	if a.indexTxs {
 		go pinStore.Listen(ctx, query.TxPinName, dbURL)
@@ -217,7 +213,7 @@ func Run(
 
 	// When this cored becomes leader, run a.lead to perform
 	// leader-only Core duties.
-	a.leader = leader.Run(ctx, db, routableAddress, a.lead)
+	//a.leader = leader.Run(ctx, db, routableAddress, a.lead)
 
 	/*err = a.addAllowedMember(ctx, struct{ Addr string }{routableAddress})
 	if err != nil {
@@ -229,62 +225,4 @@ func Run(
 	a.buildHandler()
 
 	return a, nil
-}
-
-// lead is called by the core/leader package when this cored instance
-// becomes leader of the Core.
-func (a *API) lead(ctx context.Context) {
-	if !a.config.IsGenerator {
-		fetch.Init(ctx, a.remoteGenerator)
-		// If don't have any blocks, bootstrap from the generator's
-		// latest snapshot.
-		if a.chain.Height() == 0 {
-			sp := fetch.BootstrapSnapshot(ctx, a.chain, a.store, a.remoteGenerator, a.healthSetter("fetch"))
-
-			// Save the downloading snapshot to the api so that /info can
-			// return its current status.
-			a.downloadingSnapshotMu.Lock()
-			a.downloadingSnapshot = sp
-			a.downloadingSnapshotMu.Unlock()
-			// Wait for the snapshot download to finish before continuing.
-			sp.Wait()
-		}
-	}
-
-	// This process just became leader, so it's responsible
-	// for recovering after the previous leader's exit.
-	_, _, err := a.chain.Recover(ctx)
-	if err != nil {
-		log.Fatalkv(ctx, log.KeyError, err)
-	}
-
-	// Create all of the block processor pins if they don't already exist.
-	pinHeight := a.chain.Height()
-	if pinHeight > 0 {
-		pinHeight = pinHeight - 1
-	}
-	pins := []string{account.PinName, account.ExpirePinName, account.DeleteSpentsPinName, asset.PinName, query.TxPinName}
-	for _, p := range pins {
-		err = a.pinStore.CreatePin(ctx, p, pinHeight)
-		if err != nil {
-			log.Fatalkv(ctx, log.KeyError, err)
-		}
-	}
-
-	if a.config.IsGenerator {
-		go a.generator.Generate(ctx, blockPeriod, a.healthSetter("generator"))
-	} else {
-		// Remove the downloading snapshot if there was one. The core
-		// has recovered and will now start syncing blocks.
-		a.downloadingSnapshotMu.Lock()
-		a.downloadingSnapshot = nil
-		a.downloadingSnapshotMu.Unlock()
-
-		go fetch.Fetch(ctx, a.chain, a.remoteGenerator, a.healthSetter("fetch"))
-	}
-	go a.accounts.ProcessBlocks(ctx)
-	go a.assets.ProcessBlocks(ctx)
-	if a.indexTxs {
-		go a.indexer.ProcessBlocks(ctx)
-	}
 }

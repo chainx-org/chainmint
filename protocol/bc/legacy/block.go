@@ -28,6 +28,14 @@ type Block struct {
 	Transactions []*Tx
 }
 
+func (b *Block) BlockHeight() uint64 {
+	return b.BlockHeader.Height
+}
+
+func (b *Block) BlockHash() []byte {
+	return b.BlockHeader.Hash().Bytes()
+}
+
 // MarshalText fulfills the json.Marshaler interface.
 // This guarantees that blocks will get deserialized correctly
 // when being parsed from HTTP requests.
