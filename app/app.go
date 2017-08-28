@@ -47,6 +47,16 @@ func (app *ChainmintApplication) Init(backend *core.API/*, client *rpc.Client*/)
 // Info returns information about the last height and app_hash to the tendermint engine
 func (app *ChainmintApplication) Info() abciTypes.ResponseInfo {
 	log.Printf(context.Background(), "Info")
+	currentBlock, _ := app.currentState()
+	if currentBlock == nil {
+		return abciTypes.ResponseInfo{
+			Data:   "ABCIChain",
+			LastBlockHeight: uint64(0),
+			LastBlockAppHash: []byte{},
+		}
+	}
+	height := currentBlock.BlockHeight()
+	hash := currentBlock.BlockHash()
 	/*blockchain := app.backend.Ethereum().BlockChain()
 	currentBlock := blockchain.CurrentBlock()
 	height := currentBlock.Number()
@@ -56,21 +66,19 @@ func (app *ChainmintApplication) Info() abciTypes.ResponseInfo {
 	// This check determines whether it is the first time chainmint gets started.
 	// If it is the first time, then we have to respond with an empty hash, since
 	// that is what tendermint expects.
-	//if height.Cmp(big.NewInt(0)) == 0 {
+	if height == 0 {
 		return abciTypes.ResponseInfo{
 			Data:             "ABCIChain",
 			LastBlockHeight:  uint64(0),
 			LastBlockAppHash: []byte{},
 		}
-	//}
-
-/*
-	return abciTypes.ResponseInfo{
-		Data:             "ABCIEthereum",
-		LastBlockHeight:  height.Uint64(),
-		LastBlockAppHash: hash[:],
 	}
-	*/
+
+	return abciTypes.ResponseInfo{
+		Data:             "ABCIChain",
+		LastBlockHeight:  height,
+		LastBlockAppHash: hash,
+	}
 }
 
 // SetOption sets a configuration option

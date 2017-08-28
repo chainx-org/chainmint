@@ -28,7 +28,7 @@ import (
 	//"github.com/chainmint/core/generator"
 //	"github.com/chainmint/core/migrate"
 	"github.com/chainmint/core/rpc"
-	//"github.com/chainmint/core/txdb"
+	"github.com/chainmint/core/txdb"
 	"github.com/chainmint/crypto/ed25519"
 	//"github.com/chainmint/database/pg"
 	//"github.com/chainmint/database/raft"
@@ -42,8 +42,8 @@ import (
 	"github.com/chainmint/log/splunk"
 	//"github.com/chainmint/net/http/limit"
 	"github.com/chainmint/net/http/reqid"
-	//"github.com/chainmint/protocol"
-	//"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/protocol"
+	"github.com/chainmint/protocol/bc"
 	"github.com/chainmint/protocol/bc/legacy"
 	"github.com/chainmint/app"
 )
@@ -57,7 +57,8 @@ var (
 	// config vars
 	rootCAs       = env.String("ROOT_CA_CERTS", "") // file path
 	listenAddr    = env.String("LISTEN", ":1999")
-	dbURL         = env.String("DATABASE_URL", "postgres:///core?sslmode=disable")
+	//dbURL         = env.String("DATABASE_URL", "postgres:///core?sslmode=disable")
+	dbURL         = env.String("DATABASE_URL", "user=gavin password=123456 dbname=core sslmode=disable")
 	splunkAddr    = os.Getenv("SPLUNKADDR")
 	logFile       = os.Getenv("LOGFILE")
 	logSize       = env.Int("LOGSIZE", 5e6) // 5MB
@@ -137,7 +138,8 @@ func Run(app *app.ChainmintApplication) {
 	if err != nil {
 		chainlog.Fatalkv(ctx, chainlog.KeyError, err)
 	}
-	/*listener, tlsConfig, err := maybeUseTLS(listener)
+	/*
+	listener, tlsConfig, err := maybeUseTLS(listener)
 	if err != nil {
 		chainlog.Fatalkv(ctx, chainlog.KeyError, err)
 	}*/
@@ -256,17 +258,19 @@ func Run(app *app.ChainmintApplication) {
 	chainlog.SetPrefix(append([]interface{}{"app", "cored", "buildtag", buildTag, "processID", processID}, race...)...)
 	chainlog.SetOutput(logWriter())
 
+	conf := "not null"
 	var h http.Handler
-	/*if conf != nil {
-		h = launchConfiguredCore(ctx, raftDB, db, conf, processID, httpClient, core.UseTLS(tlsConfig))
-	} else {*/
+	var api *core.API
+	if &conf != nil {
+		api = launchConfiguredCore(ctx, db, processID, core.UseTLS(nil))
+	} else {
 		var opts []core.RunOption
 		//opts = append(opts, core.UseTLS(tlsConfig))
 		//opts = append(opts, enableMockHSM(db)...)
 		chainlog.Printf(ctx, "Launching as unconfigured Core.")
-		api := core.RunUnconfigured(ctx, db, *listenAddr, opts...)
-		app.Init(api)
-	//}
+		api = core.RunUnconfigured(ctx, db, *listenAddr, opts...)
+	}
+	app.Init(api)
 	h = api
 	coreHandler.Set(h)
 	chainlog.Printf(ctx, "Chain Core online and listening at %s", *listenAddr)
@@ -294,38 +298,39 @@ func maybeUseTLS(ln net.Listener) (net.Listener, *tls.Config, error) {
 	return ln, c, nil
 }
 
-/*
-func launchConfiguredCore(ctx context.Context, raftDB *raft.Service, db *sql.DB, conf *config.Config, processID string, httpClient *http.Client, opts ...core.RunOption) http.Handler {
+func launchConfiguredCore(ctx context.Context, db *sql.DB, processID string, opts ...core.RunOption) *core.API {
 	// Initialize the protocol.Chain.
 	heights, err := txdb.ListenBlocks(ctx, *dbURL)
 	if err != nil {
 		chainlog.Fatalkv(ctx, chainlog.KeyError, err)
 	}
 	store := txdb.NewStore(db)
-	c, err := protocol.NewChain(ctx, *conf.BlockchainId, store, heights)
+	blockchainId := bc.EmptyStringHash
+	c, err := protocol.NewChain(ctx, blockchainId, store, heights)
 	if err != nil {
 		chainlog.Fatalkv(ctx, chainlog.KeyError, err)
 	}
 
-	var localSigner *blocksigner.BlockSigner
+	/*var localSigner *blocksigner.BlockSigner
 
 	opts = append(opts, core.IndexTransactions(*indexTxs))
-	opts = append(opts, enableMockHSM(db)...)
+	opts = append(opts, enableMockHSM(db)...)*/
 	// Add any configured API request rate limits.
-	if *rpsToken > 0 {
+	/*if *rpsToken > 0 {
 		opts = append(opts, core.RateLimit(limit.AuthUserID, 2*(*rpsToken), *rpsToken))
 	}
 	if *rpsRemoteAddr > 0 {
 		opts = append(opts, core.RateLimit(limit.RemoteAddrID, 2*(*rpsRemoteAddr), *rpsRemoteAddr))
-	}
+	}*/
 	// If the Core is configured as a block signer, add the sign-block RPC handler.
-	if conf.IsSigner {
-		localSigner, err = initializeLocalSigner(ctx, conf, db, c, processID, httpClient)
-		if err != nil {
-			chainlog.Fatalkv(ctx, chainlog.KeyError, err)
-		}
-		opts = append(opts, core.BlockSigner(localSigner.ValidateAndSignBlock))
+	//if conf.IsSigner {
+	/*localSigner, err = initializeLocalSigner(ctx, conf, db, c, processID, httpClient)
+	if err != nil {
+		chainlog.Fatalkv(ctx, chainlog.KeyError, err)
 	}
+	opts = append(opts, core.BlockSigner(localSigner.ValidateAndSignBlock))
+	*/
+	//}
 
 	// The Core is either configured as a generator or not. If it's configured
 	// as a generator, instantiate the generator with the configured local and
@@ -334,8 +339,8 @@ func launchConfiguredCore(ctx context.Context, raftDB *raft.Service, db *sql.DB,
 	//
 	// If the Core is not a generator, provide an RPC client for the generator
 	// so that the Core can replicate blocks.
-	if conf.IsGenerator {
-		var signers []generator.BlockSigner
+	//if conf.IsGenerator {
+		/*var signers []generator.BlockSigner
 		if localSigner != nil {
 			signers = append(signers, localSigner)
 		}
@@ -345,8 +350,8 @@ func launchConfiguredCore(ctx context.Context, raftDB *raft.Service, db *sql.DB,
 		c.MaxIssuanceWindow = bc.MillisDuration(conf.MaxIssuanceWindowMs)
 
 		gen := generator.New(c, signers, db)
-		opts = append(opts, core.GeneratorLocal(gen))
-	} else {
+		opts = append(opts, core.GeneratorLocal(gen))*/
+	/*} else {
 		opts = append(opts, core.GeneratorRemote(&rpc.Client{
 			BaseURL:      conf.GeneratorUrl,
 			AccessToken:  conf.GeneratorAccessToken,
@@ -356,20 +361,19 @@ func launchConfiguredCore(ctx context.Context, raftDB *raft.Service, db *sql.DB,
 			BlockchainID: conf.BlockchainId.String(),
 			Client:       httpClient,
 		}))
-	}
+	}*/
 
 	// Start up the Core. This will start up the various Core subsystems,
 	// and begin leader election.
-	api, err := core.Run(ctx, conf, db, *dbURL, raftDB, c, store, *listenAddr, opts...)
+	api, err := core.Run(ctx, db, *dbURL, c, store, *listenAddr, opts...)
 	if err != nil {
 		chainlog.Fatalkv(ctx, chainlog.KeyError, err)
 	}
 	return api
 }
-*/
 
 /*
-func initializeLocalSigner(ctx context.Context, conf *config.Config, db pg.DB, c *protocol.Chain, processID string, httpClient *http.Client) (*blocksigner.BlockSigner, error) {
+func initializeLocalSigner(ctx context.Context, db pg.DB, c *protocol.Chain, processID string) (*blocksigner.BlockSigner, error) {
 	var hsm blocksigner.Signer
 	if conf.BlockHsmUrl != "" {
 		// TODO(ameets): potential option to take only a password when configuring
@@ -384,12 +388,12 @@ func initializeLocalSigner(ctx context.Context, conf *config.Config, db pg.DB, c
 			Client:       httpClient,
 		}}
 	} else {
-		var err error
-		hsm, err = mockHSM(db)
-		if err != nil {
-			return nil, err
-		}
+	var err error
+	hsm, err = mockHSM(db)
+	if err != nil {
+		return nil, err
 	}
+	//}
 	blockPub := ed25519.PublicKey(conf.BlockPub)
 	s := blocksigner.New(blockPub, hsm, db, c)
 	return s, nil
