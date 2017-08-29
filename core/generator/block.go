@@ -42,7 +42,7 @@ func recordSince(t0 time.Time) {
 
 // makeBlock generates a new legacy.Block, collects the required signatures
 // and commits the block to the blockchain.
-func (g *Generator) makeBlock(ctx context.Context) (err error) {
+func (g *Generator) MakeBlock(ctx context.Context) (err error) {
 	t0 := time.Now()
 	defer recordSince(t0)
 

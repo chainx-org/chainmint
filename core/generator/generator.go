@@ -40,13 +40,11 @@ type Generator struct {
 // New creates and initializes a new Generator.
 func New(
 	c *protocol.Chain,
-	s []BlockSigner,
 	db pg.DB,
 ) *Generator {
 	return &Generator{
 		db:         db,
 		chain:      c,
-		signers:    s,
 		poolHashes: make(map[bc.Hash]bool),
 	}
 }
@@ -93,7 +91,7 @@ func (g *Generator) Generate(
 			log.Printf(ctx, "Deposed, Generate exiting")
 			return
 		case <-ticks:
-			err := g.makeBlock(ctx)
+			err := g.MakeBlock(ctx)
 			health(err)
 			if err != nil {
 				log.Error(ctx, err)
