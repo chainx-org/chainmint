@@ -29,6 +29,7 @@ type ChainmintApplication struct {
 
 	// strategy for validator compensation
 	strategy *cmtTypes.Strategy
+	BlockTime uint64
 }
 
 // NewChainmintApplication creates the abci application for Chainmint
@@ -113,12 +114,7 @@ func (app *ChainmintApplication) DeliverTx(txBytes []byte) abciTypes.Result {
 	}
 
 	log.Printf(context.Background(), "Got DeliverTx", "tx", tx)
-	/*err = app.backend.DeliverTx(tx)
-	if err != nil {
-		log.Warn("DeliverTx error", "err", err)
-
-		return abciTypes.ErrInternalError.AppendLog(err.Error())
-	}*/
+	app.backend.Generator().Submit(context.Background(), tx)
 	app.CollectTx(tx)
 
 	return abciTypes.OK
@@ -127,26 +123,19 @@ func (app *ChainmintApplication) DeliverTx(txBytes []byte) abciTypes.Result {
 // BeginBlock starts a new chain block
 func (app *ChainmintApplication) BeginBlock(hash []byte, tmHeader *abciTypes.Header) {
 	log.Printf(context.Background(), "BeginBlock")
-
-	// update the eth header with the tendermint header
-	//app.backend.UpdateHeaderWithTimeInfo(tmHeader)
+	app.BlockTime = tmHeader.Time
 }
 
 // EndBlock accumulates rewards for the validators and updates them
 func (app *ChainmintApplication) EndBlock(height uint64) abciTypes.ResponseEndBlock {
 	log.Printf(context.Background(), "EndBlock")
-	//app.backend.AccumulateRewards(app.strategy)
 	return app.GetUpdatedValidators()
 }
 
 // Commit commits the block and returns a hash of the current state
 func (app *ChainmintApplication) Commit() abciTypes.Result {
 	log.Printf(context.Background(), "Commit")
-	//blockHash, err := app.backend.Commit(app.Receiver())
-	/*if err != nil {
-		log.Error(context.Background(), "Error getting latest chain state", "err", err)
-		return abciTypes.ErrInternalError.AppendLog(err.Error())
-	}*/
+	app.backend.Generator().MakeBlock(context.Background(), app.BlockTime)
 	blockHash := []byte("")
 	return abciTypes.NewResultOK(blockHash[:], "")
 }

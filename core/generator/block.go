@@ -42,10 +42,7 @@ func recordSince(t0 time.Time) {
 
 // makeBlock generates a new legacy.Block, collects the required signatures
 // and commits the block to the blockchain.
-func (g *Generator) makeBlock(ctx context.Context) (err error) {
-	t0 := time.Now()
-	defer recordSince(t0)
-
+func (g *Generator) MakeBlock(ctx context.Context, time uint64) (err error) {
 	latestBlock, latestSnapshot := g.chain.State()
 	var b *legacy.Block
 	var s *state.Snapshot
@@ -70,7 +67,7 @@ func (g *Generator) makeBlock(ctx context.Context) (err error) {
 		g.poolHashes = make(map[bc.Hash]bool)
 		g.mu.Unlock()
 
-		b, s, err = g.chain.GenerateBlock(ctx, latestBlock, latestSnapshot, time.Now(), txs)
+		b, s, err = g.chain.GenerateBlock(ctx, latestBlock, latestSnapshot, time, txs)
 		if err != nil {
 			return errors.Wrap(err, "generate")
 		}

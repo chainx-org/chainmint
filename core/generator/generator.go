@@ -7,10 +7,10 @@ package generator
 import (
 	"context"
 	"sync"
-	"time"
+	//"time"
 
 	"github.com/chainmint/database/pg"
-	"github.com/chainmint/log"
+	//"github.com/chainmint/log"
 	"github.com/chainmint/protocol"
 	"github.com/chainmint/protocol/bc"
 	"github.com/chainmint/protocol/bc/legacy"
@@ -40,13 +40,11 @@ type Generator struct {
 // New creates and initializes a new Generator.
 func New(
 	c *protocol.Chain,
-	s []BlockSigner,
 	db pg.DB,
 ) *Generator {
 	return &Generator{
 		db:         db,
 		chain:      c,
-		signers:    s,
 		poolHashes: make(map[bc.Hash]bool),
 	}
 }
@@ -81,6 +79,7 @@ func (g *Generator) Submit(ctx context.Context, tx *legacy.Tx) error {
 // is canceled.
 // After each attempt to make a block, it calls health
 // to report either an error or nil to indicate success.
+/*
 func (g *Generator) Generate(
 	ctx context.Context,
 	period time.Duration,
@@ -93,7 +92,7 @@ func (g *Generator) Generate(
 			log.Printf(ctx, "Deposed, Generate exiting")
 			return
 		case <-ticks:
-			err := g.makeBlock(ctx)
+			err := g.MakeBlock(ctx)
 			health(err)
 			if err != nil {
 				log.Error(ctx, err)
@@ -101,3 +100,4 @@ func (g *Generator) Generate(
 		}
 	}
 }
+*/

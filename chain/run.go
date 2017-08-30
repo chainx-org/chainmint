@@ -46,6 +46,7 @@ import (
 	"github.com/chainmint/protocol/bc"
 	"github.com/chainmint/protocol/bc/legacy"
 	"github.com/chainmint/app"
+	"github.com/chainmint/core/generator"
 )
 
 const (
@@ -310,58 +311,9 @@ func launchConfiguredCore(ctx context.Context, db *sql.DB, processID string, opt
 	if err != nil {
 		chainlog.Fatalkv(ctx, chainlog.KeyError, err)
 	}
-
-	/*var localSigner *blocksigner.BlockSigner
-
-	opts = append(opts, core.IndexTransactions(*indexTxs))
-	opts = append(opts, enableMockHSM(db)...)*/
-	// Add any configured API request rate limits.
-	/*if *rpsToken > 0 {
-		opts = append(opts, core.RateLimit(limit.AuthUserID, 2*(*rpsToken), *rpsToken))
-	}
-	if *rpsRemoteAddr > 0 {
-		opts = append(opts, core.RateLimit(limit.RemoteAddrID, 2*(*rpsRemoteAddr), *rpsRemoteAddr))
-	}*/
-	// If the Core is configured as a block signer, add the sign-block RPC handler.
-	//if conf.IsSigner {
-	/*localSigner, err = initializeLocalSigner(ctx, conf, db, c, processID, httpClient)
-	if err != nil {
-		chainlog.Fatalkv(ctx, chainlog.KeyError, err)
-	}
-	opts = append(opts, core.BlockSigner(localSigner.ValidateAndSignBlock))
-	*/
-	//}
-
-	// The Core is either configured as a generator or not. If it's configured
-	// as a generator, instantiate the generator with the configured local and
-	// remote block signers. Provide a launch option to the Core to use the
-	// generator.
-	//
-	// If the Core is not a generator, provide an RPC client for the generator
-	// so that the Core can replicate blocks.
-	//if conf.IsGenerator {
-		/*var signers []generator.BlockSigner
-		if localSigner != nil {
-			signers = append(signers, localSigner)
-		}
-		for _, signer := range remoteSignerInfo(ctx, processID, buildTag, conf.BlockchainId.String(), conf, httpClient) {
-			signers = append(signers, signer)
-		}
-		c.MaxIssuanceWindow = bc.MillisDuration(conf.MaxIssuanceWindowMs)
-
-		gen := generator.New(c, signers, db)
-		opts = append(opts, core.GeneratorLocal(gen))*/
-	/*} else {
-		opts = append(opts, core.GeneratorRemote(&rpc.Client{
-			BaseURL:      conf.GeneratorUrl,
-			AccessToken:  conf.GeneratorAccessToken,
-			Username:     processID,
-			CoreID:       conf.Id,
-			BuildTag:     buildTag,
-			BlockchainID: conf.BlockchainId.String(),
-			Client:       httpClient,
-		}))
-	}*/
+	// to do: to added BlockSinger.
+	gen := generator.New(c, db)
+	opts = append(opts, core.GeneratorLocal(gen))
 
 	// Start up the Core. This will start up the various Core subsystems,
 	// and begin leader election.
@@ -371,34 +323,6 @@ func launchConfiguredCore(ctx context.Context, db *sql.DB, processID string, opt
 	}
 	return api
 }
-
-/*
-func initializeLocalSigner(ctx context.Context, db pg.DB, c *protocol.Chain, processID string) (*blocksigner.BlockSigner, error) {
-	var hsm blocksigner.Signer
-	if conf.BlockHsmUrl != "" {
-		// TODO(ameets): potential option to take only a password when configuring
-		//  and convert to an access token string here for BlockHSMAccessToken
-		hsm = &remoteHSM{Client: &rpc.Client{
-			BaseURL:      conf.BlockHsmUrl,
-			AccessToken:  conf.BlockHsmAccessToken,
-			Username:     processID,
-			CoreID:       conf.Id,
-			BuildTag:     buildTag,
-			BlockchainID: conf.BlockchainId.String(),
-			Client:       httpClient,
-		}}
-	} else {
-	var err error
-	hsm, err = mockHSM(db)
-	if err != nil {
-		return nil, err
-	}
-	//}
-	blockPub := ed25519.PublicKey(conf.BlockPub)
-	s := blocksigner.New(blockPub, hsm, db, c)
-	return s, nil
-}
-*/
 
 // remoteHSM is a client wrapper for an hsm that is used as a blocksigner.Signer
 type remoteHSM struct {

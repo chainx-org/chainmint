@@ -91,6 +91,10 @@ type API struct {
 	healthErrors map[string]string
 }
 
+func (a *API) Generator() *generator.Generator {
+	return a.generator
+}
+
 func (a *API) Chain() *protocol.Chain {
 	return a.chain
 }
