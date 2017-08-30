@@ -48,12 +48,12 @@ func (c *Chain) GetBlock(ctx context.Context, height uint64) (*legacy.Block, err
 //
 // After generating the block, the pending transaction pool will be
 // empty.
-func (c *Chain) GenerateBlock(ctx context.Context, prev *legacy.Block, snapshot *state.Snapshot, now time.Time, txs []*legacy.Tx) (*legacy.Block, *state.Snapshot, error) {
+func (c *Chain) GenerateBlock(ctx context.Context, prev *legacy.Block, snapshot *state.Snapshot, now uint64, txs []*legacy.Tx) (*legacy.Block, *state.Snapshot, error) {
 	// TODO(kr): move this into a lower-level package (e.g. chain/protocol/bc)
 	// so that other packages (e.g. chain/protocol/validation) unit tests can
 	// call this function.
 
-	timestampMS := bc.Millis(now)
+	timestampMS := now
 	if timestampMS < prev.TimestampMS {
 		return nil, nil, fmt.Errorf("timestamp %d is earlier than prevblock timestamp %d", timestampMS, prev.TimestampMS)
 	}

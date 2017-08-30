@@ -7,10 +7,10 @@ package generator
 import (
 	"context"
 	"sync"
-	"time"
+	//"time"
 
 	"github.com/chainmint/database/pg"
-	"github.com/chainmint/log"
+	//"github.com/chainmint/log"
 	"github.com/chainmint/protocol"
 	"github.com/chainmint/protocol/bc"
 	"github.com/chainmint/protocol/bc/legacy"
@@ -79,6 +79,7 @@ func (g *Generator) Submit(ctx context.Context, tx *legacy.Tx) error {
 // is canceled.
 // After each attempt to make a block, it calls health
 // to report either an error or nil to indicate success.
+/*
 func (g *Generator) Generate(
 	ctx context.Context,
 	period time.Duration,
@@ -99,3 +100,4 @@ func (g *Generator) Generate(
 		}
 	}
 }
+*/
