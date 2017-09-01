@@ -32,7 +32,7 @@ func (b *Block) BlockHeight() uint64 {
 	return b.BlockHeader.Height
 }
 
-func (b *Block) BlockHash() []byte {
+func (b *Block) BlockHeaderHash() []byte {
 	return b.BlockHeader.Hash().Bytes()
 }
 

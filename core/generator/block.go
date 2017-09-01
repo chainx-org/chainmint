@@ -42,17 +42,17 @@ func recordSince(t0 time.Time) {
 
 // makeBlock generates a new legacy.Block, collects the required signatures
 // and commits the block to the blockchain.
-func (g *Generator) MakeBlock(ctx context.Context, time uint64) (err error) {
+func (g *Generator) MakeBlock(ctx context.Context, time uint64) (error, []byte) {
 	latestBlock, latestSnapshot := g.chain.State()
-	var b *legacy.Block
+//	var b *legacy.Block
 	var s *state.Snapshot
 
 	// Check to see if we already have a pending, generated block.
 	// This can happen if the leader process exits between generating
 	// the block and committing the signed block to the blockchain.
-	b, err = getPendingBlock(ctx, g.db)
+	b, err := getPendingBlock(ctx, g.db)
 	if err != nil {
-		return errors.Wrap(err, "retrieving the pending block")
+		return errors.Wrap(err, "retrieving the pending block"), nil
 	}
 	if b != nil && (latestBlock == nil || b.Height == latestBlock.Height+1) {
 		s = state.Copy(latestSnapshot)
@@ -69,30 +69,30 @@ func (g *Generator) MakeBlock(ctx context.Context, time uint64) (err error) {
 
 		b, s, err = g.chain.GenerateBlock(ctx, latestBlock, latestSnapshot, time, txs)
 		if err != nil {
-			return errors.Wrap(err, "generate")
+			return errors.Wrap(err, "generate"), nil
 		}
 		if len(b.Transactions) == 0 {
-			return nil // don't bother making an empty block
+			return nil, b.Hash().Bytes() // don't bother making an empty block
 		}
 		err = savePendingBlock(ctx, g.db, b)
 		if err != nil {
-			return errors.Wrap(err, "saving pending block")
+			return errors.Wrap(err, "saving pending block"), nil
 		}
 	}
 	return g.commitBlock(ctx, b, s, latestBlock)
 }
 
-func (g *Generator) commitBlock(ctx context.Context, b *legacy.Block, s *state.Snapshot, prevBlock *legacy.Block) error {
+func (g *Generator) commitBlock(ctx context.Context, b *legacy.Block, s *state.Snapshot, prevBlock *legacy.Block) (error, []byte) {
 	err := g.getAndAddBlockSignatures(ctx, b, prevBlock)
 	if err != nil {
-		return errors.Wrap(err, "sign")
+		return errors.Wrap(err, "sign"), nil
 	}
 
 	err = g.chain.CommitAppliedBlock(ctx, b, s)
 	if err != nil {
-		return errors.Wrap(err, "commit")
+		return errors.Wrap(err, "commit"), nil
 	}
-	return nil
+	return nil, b.Hash().Bytes()
 }
 
 func (g *Generator) getAndAddBlockSignatures(ctx context.Context, b, prevBlock *legacy.Block) error {
