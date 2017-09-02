@@ -4,13 +4,11 @@ chainmint = (tendermint + utxo + cvm )。 类似于ethermint， chain.com是基�
 
 ## build steps
 ``` console
-1. glide update
-2. make get_vendor_deps
-3. make build
+make get_vendor_deps
 ```
 ## install steps
--1. install tendermint
--2. install postgreSQL
+- 1. install tendermint
+- 2. install postgreSQL
 
 ## run steps
 ### run chainmint
