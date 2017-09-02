@@ -7,29 +7,29 @@ package config
 
 import (
 	"context"
-	"crypto/rand"
+	//"crypto/rand"
 	libsql "database/sql"
 	"encoding/hex"
 	"encoding/json"
 	"net/http"
-	"net/url"
+	//"net/url"
 	"time"
 
 	"github.com/golang/protobuf/proto"
 
 	"github.com/chainmint/core/accesstoken"
 	"github.com/chainmint/core/rpc"
-	"github.com/chainmint/core/txdb"
-	"github.com/chainmint/crypto/ed25519"
+	//"github.com/chainmint/core/txdb"
+	//"github.com/chainmint/crypto/ed25519"
 	"github.com/chainmint/database/pg"
 	"github.com/chainmint/database/raft"
 	"github.com/chainmint/database/sql"
 	"github.com/chainmint/errors"
 	"github.com/chainmint/log"
 	"github.com/chainmint/net/http/authz"
-	"github.com/chainmint/protocol"
+	//"github.com/chainmint/protocol"
 	"github.com/chainmint/protocol/bc"
-	"github.com/chainmint/protocol/state"
+	//"github.com/chainmint/protocol/state"
 )
 
 const (
@@ -187,6 +187,7 @@ func deleteFromPG(ctx context.Context, db pg.DB) error {
 // saves it, and assigns its hash to c.BlockchainId
 // Otherwise, c.IsGenerator is false, and Configure makes a test request
 // to GeneratorUrl to detect simple configuration mistakes.
+/*
 func Configure(ctx context.Context, db pg.DB, rDB *raft.Service, httpClient *http.Client, c *Config) error {
 	var err error
 	if !c.IsGenerator {
@@ -273,6 +274,7 @@ func Configure(ctx context.Context, db pg.DB, rDB *raft.Service, httpClient *htt
 	}
 	return rDB.Insert(ctx, "/core/config", val)
 }
+*/
 
 func tryGenerator(ctx context.Context, url, accessToken, blockchainID string, httpClient *http.Client) error {
 	client := &rpc.Client{
