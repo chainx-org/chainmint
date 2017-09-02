@@ -3,21 +3,22 @@ package app
 import (
 	"encoding/json"
 	"context"
-//	"fmt"
-//	"math/big"
 
 	"github.com/chainmint/protocol/state"
 	"github.com/chainmint/errors"
-	//"github.com/chainmint/protocol"
+	"github.com/chainmint/env"
 	"github.com/chainmint/core"
 	"github.com/chainmint/protocol/bc/legacy"
 	"github.com/chainmint/log"
-	//"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/core/rpc"
 	abciTypes "github.com/tendermint/abci/types"
 
 	cmtTypes "github.com/chainmint/types"
 )
 
+var (
+	coreURL = env.String("CORE_URL", "http://localhost:1999")
+)
 // ChainmintApplication implements an ABCI application
 type ChainmintApplication struct {
 
@@ -59,11 +60,6 @@ func (app *ChainmintApplication) Info() abciTypes.ResponseInfo {
 	}
 	height := currentBlock.BlockHeight()
 	hash := currentBlock.Hash().Bytes()
-	/*blockchain := app.backend.Ethereum().BlockChain()
-	currentBlock := blockchain.CurrentBlock()
-	height := currentBlock.Number()
-	hash := currentBlock.Hash()
-	*/
 
 	// This check determines whether it is the first time chainmint gets started.
 	// If it is the first time, then we have to respond with an empty hash, since
@@ -146,28 +142,30 @@ func (app *ChainmintApplication) Commit() abciTypes.Result {
 // Query queries the state of ChainmintApplication
 func (app *ChainmintApplication) Query(query abciTypes.RequestQuery) abciTypes.ResponseQuery {
 	log.Printf(context.Background(), "Query")
-	/*var in jsonRequest
+	client := &rpc.Client{
+						BaseURL: *coreURL,
+						Client: app.backend.HttpClient(),
+						}
+	var in jsonRequest
 	if err := json.Unmarshal(query.Data, &in); err != nil {
 		return abciTypes.ResponseQuery{Code: abciTypes.ErrEncodingError.Code, Log: err.Error()}
-	}*/
-	var result interface{}
-	/*if err := app.rpcClient.Call(&result, in.Method, in.Params...); err != nil {
+	}
+	var result map[string]interface{}
+	if err := client.Call(context.Background(), query.Path, in, &result); err != nil {
 		return abciTypes.ResponseQuery{Code: abciTypes.ErrInternalError.Code, Log: err.Error()}
-	}*/
+	}
 
-	bytes, _ := json.Marshal(result)
-	bytes = []byte("")
-/*	bytes, err := json.Marshal(result)
+	bytes, err := json.Marshal(result)
 	if err != nil {
 		return abciTypes.ResponseQuery{Code: abciTypes.ErrInternalError.Code, Log: err.Error()}
-	}*/
+	}
 	return abciTypes.ResponseQuery{Code: abciTypes.OK.Code, Value: bytes}
 }
 
 //-------------------------------------------------------
 
 // validateTx checks the validity of a tx against the blockchain's current state.
-// it duplicates the logic in ethereum's tx_pool
+// it duplicates the logic in chain's tx_pool
 func (app *ChainmintApplication) validateTx(tx *legacy.Tx) abciTypes.Result {
 	err := app.backend.Chain().ValidateTx(tx.Tx)
 	if err != nil {
