@@ -54,26 +54,34 @@ func (c *Chain) GenerateBlock(ctx context.Context, prev *legacy.Block, snapshot 
 	// call this function.
 
 	timestampMS := now
-	if timestampMS < prev.TimestampMS {
-		return nil, nil, fmt.Errorf("timestamp %d is earlier than prevblock timestamp %d", timestampMS, prev.TimestampMS)
-	}
+	var b *legacy.Block
+	if prev == nil {
+		b, _ = NewInitialBlock(nil, 0, timestampMS)
+		err := c.CommitAppliedBlock(ctx, b, state.Empty())
+		if err != nil {
+			return nil, nil, fmt.Errorf("genesis block commit error.")
+		}
+	} else {
+		if timestampMS < prev.TimestampMS {
+			return nil, nil, fmt.Errorf("timestamp %d is earlier than prevblock timestamp %d", timestampMS, prev.TimestampMS)
+		}
 
-	// Make a copy of the snapshot that we can apply our changes to.
+		// Make a copy of the snapshot that we can apply our changes to.
+
+		b = &legacy.Block{
+			BlockHeader: legacy.BlockHeader{
+				Version:           1,
+				Height:            prev.Height + 1,
+				PreviousBlockHash: prev.Hash(),
+				TimestampMS:       timestampMS,
+				BlockCommitment: legacy.BlockCommitment{
+					ConsensusProgram: prev.ConsensusProgram,
+				},
+			},
+		}
+	}
 	newSnapshot := state.Copy(c.state.snapshot)
 	newSnapshot.PruneNonces(timestampMS)
-
-	b := &legacy.Block{
-		BlockHeader: legacy.BlockHeader{
-			Version:           1,
-			Height:            prev.Height + 1,
-			PreviousBlockHash: prev.Hash(),
-			TimestampMS:       timestampMS,
-			BlockCommitment: legacy.BlockCommitment{
-				ConsensusProgram: prev.ConsensusProgram,
-			},
-		},
-	}
-
 	var txEntries []*bc.Tx
 
 	for _, tx := range txs {
@@ -239,7 +247,7 @@ func (c *Chain) ValidateBlockForSig(ctx context.Context, block *legacy.Block) er
 	return errors.Sub(ErrBadBlock, err)
 }
 
-func NewInitialBlock(pubkeys []ed25519.PublicKey, nSigs int, timestamp time.Time) (*legacy.Block, error) {
+func NewInitialBlock(pubkeys []ed25519.PublicKey, nSigs int, timestamp uint64) (*legacy.Block, error) {
 	// TODO(kr): move this into a lower-level package (e.g. chain/protocol/bc)
 	// so that other packages (e.g. chain/protocol/validation) unit tests can
 	// call this function.
@@ -258,7 +266,7 @@ func NewInitialBlock(pubkeys []ed25519.PublicKey, nSigs int, timestamp time.Time
 		BlockHeader: legacy.BlockHeader{
 			Version:     1,
 			Height:      1,
-			TimestampMS: bc.Millis(timestamp),
+			TimestampMS: timestamp,
 			BlockCommitment: legacy.BlockCommitment{
 				TransactionsMerkleRoot: root,
 				ConsensusProgram:       script,
