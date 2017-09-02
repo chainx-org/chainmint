@@ -57,6 +57,10 @@ func (c *Chain) GenerateBlock(ctx context.Context, prev *legacy.Block, snapshot 
 	var b *legacy.Block
 	if prev == nil {
 		b, _ = NewInitialBlock(nil, 0, timestampMS)
+		err := c.CommitAppliedBlock(ctx, b, state.Empty())
+		if err != nil {
+			return nil, nil, fmt.Errorf("genesis block commit error.")
+		}
 	} else {
 		if timestampMS < prev.TimestampMS {
 			return nil, nil, fmt.Errorf("timestamp %d is earlier than prevblock timestamp %d", timestampMS, prev.TimestampMS)
