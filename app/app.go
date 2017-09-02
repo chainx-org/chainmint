@@ -7,6 +7,7 @@ import (
 //	"math/big"
 
 	"github.com/chainmint/protocol/state"
+	"github.com/chainmint/errors"
 	//"github.com/chainmint/protocol"
 	"github.com/chainmint/core"
 	"github.com/chainmint/protocol/bc/legacy"
@@ -168,5 +169,9 @@ func (app *ChainmintApplication) Query(query abciTypes.RequestQuery) abciTypes.R
 // validateTx checks the validity of a tx against the blockchain's current state.
 // it duplicates the logic in ethereum's tx_pool
 func (app *ChainmintApplication) validateTx(tx *legacy.Tx) abciTypes.Result {
+	err := app.backend.Chain().ValidateTx(tx.Tx)
+	if err != nil {
+		return abciTypes.ErrUnknownRequest.AppendLog(errors.Detail(err))
+	}
 	return abciTypes.OK
 }
