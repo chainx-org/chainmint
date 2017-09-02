@@ -99,6 +99,10 @@ func (a *API) Chain() *protocol.Chain {
 	return a.chain
 }
 
+func (a *API) HttpClient() *http.Client {
+	return a.httpClient
+}
+
 func (a *API) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	a.handler.ServeHTTP(rw, req)
 }
