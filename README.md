@@ -7,7 +7,7 @@ chainmint = (tendermint + utxo + cvm )。 类似于ethermint， chain.com是基�
 make get_vendor_deps
 cd cmd/chainmint
 go build
-cd cmd/chaincli
+cd cmd/chainmintcli
 go build
 ```
 ## install steps
