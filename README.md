@@ -1,6 +1,12 @@
-# chainmint
-chainmint = (tendermint + utxo + cvm )。 类似于ethermint， chain.com是基于tendermint 实现的abci应用。
+# [chainmint](https://github.com/chainx-org/chainmint)  **=** [Tendermint](https://tendermint.com/) **+** [Chain](https://chain.com/) 
+chainmint = (tendermint + utxo + cvm ).
+chainmint is based on the tendermint consensus, inherited Chain's UTXO, CVM block chain. The future will become cosmos a zone, used to support Chain (Nasdaq stock market block technology used) cross-chain technology.
 
+## components
+- **Tendermint** (https://github.com/tendermint/tendermint) chainmint consensus module, organized chainmint transaction order.
+- **Chainmint** (https://github.com/chainx-org/chainmint) implements the specific logic of the abci interface.
+- **PostgreSql** (https://github.com/postgres/postgres) chainmint data storage module.
+- **Chainmintcli** (https://github.com/chainx-org/chainmint/tree/master/cmd/chainmintcli) chainmint client for communication with chainmint.
 
 ## build steps
 ``` console
