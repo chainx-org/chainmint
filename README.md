@@ -5,6 +5,10 @@ chainmint = (tendermint + utxo + cvm )。 类似于ethermint， chain.com是基�
 ## build steps
 ``` console
 make get_vendor_deps
+cd cmd/chainmint
+go build
+cd cmd/chaincli
+go build
 ```
 ## install steps
 - 1. install tendermint
@@ -24,5 +28,7 @@ make get_vendor_deps
 ```
 ### run chainmintcli to test
 ``` console
-6. ./chainmintcli
+6. ./chainmintcli <options.>
 ```
+
+## more details:https://gguoss.github.io/2017/09/03/chainmint/
