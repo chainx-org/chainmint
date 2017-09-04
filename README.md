@@ -21,7 +21,7 @@ Chainmint is based on the tendermint consensus inherited from Chain's UTXO and C
 1. install tendermint
 2. install postgreSQL
 
-## Build
+### Build
 
 ``` bash
 make get_vendor_deps
@@ -31,9 +31,9 @@ cd cmd/chainmintcli
 go build
 ```
 
-## Run
+### Run
 
-### Chainmint
+#### Chainmint
 
 First, Configure `user`, `password`, `dbname` and `sslmode` in `chainmint/chain/run.go`:
 
@@ -45,12 +45,14 @@ then execute `chainmint/core/schema.sql` in postgreSql's `core` (i.e., `dbname`)
 
 Enter `chainmint/cmd/chainmint` and run `./chainmint`.
 
-### Local Tendermint
+#### Local Tendermint
+
 ``` bash
 ./tendermint init --home ./yourdir
 ./tendermint node --home ./yourdir
 ```
-### Chainmintcli
+
+#### Chainmintcli
 ``` bash
 ./chainmintcli <options.>
 ```
