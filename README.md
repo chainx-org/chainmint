@@ -1,4 +1,4 @@
-# [chainmint](https://github.com/chainx-org/chainmint)  **=** [Tendermint](https://tendermint.com/) **+** [Chain](https://chain.com/)
+# [Chainmint](https://github.com/chainx-org/chainmint)  **=** [Tendermint](https://tendermint.com/) **+** [Chain](https://chain.com/)
 
 Chainmint is based on the tendermint consensus inherited from Chain's UTXO and CVM. It can become a Cosmos Zone in the future, supporting [Chain](https://chain.com) cross-chain functionality. For simplicity:
 
@@ -35,7 +35,7 @@ go build
 
 #### Chainmint
 
-First, Configure `user`, `password`, `dbname` and `sslmode` in `chainmint/chain/run.go`:
+First, configure `user`, `password`, `dbname` and `sslmode` in `chainmint/chain/run.go`:
 
 ``` go
 dbURL = env.String("DATABASE_URL", "user=yourusername password=yourpassword dbname=core sslmode=disable")
