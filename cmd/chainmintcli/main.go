@@ -4,7 +4,6 @@ package main
 import (
 	"bytes"
 	"context"
-	"encoding/hex"
 	"flag"
 	"fmt"
 	"io"
@@ -12,26 +11,22 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strconv"
 	"strings"
 	"time"
 
 	"github.com/chainmint/core"
-//	"github.com/chainmint/core/accesstoken"
-	"github.com/chainmint/core/config"
 	"github.com/chainmint/core/rpc"
 	"github.com/chainmint/crypto/ed25519"
 	"github.com/chainmint/env"
 	"github.com/chainmint/errors"
-	"github.com/chainmint/generated/rev"
 	"github.com/chainmint/log"
-	"github.com/chainmint/protocol/bc"
+	"github.com/chainmint/crypto/ed25519/chainkd"
 )
 
 // config vars
 var (
 	home    = core.HomeDirFromEnvironment()
-	coreURL = env.String("CORE_URL", "http://localhost:1999")
+	coreURL = env.String("BYTOM_URL", "http://localhost:1999")
 
 	// build vars; initialized by the linker
 	buildTag    = "?"
@@ -54,15 +49,16 @@ type grantReq struct {
 }
 
 var commands = map[string]*command{
-	"config-generator":     {configGenerator},
 	"create-block-keypair": {createBlockKeyPair},
-	//"create-token":         {createToken},
-	"config":               {configNongenerator},
 	"reset":                {reset},
 	"grant":                {grant},
 	"revoke":               {revoke},
-//	"allow-address":        {allowRaftMember},
 	"wait":                 {wait},
+	"create-account":       {createAccount},
+	"update-account-tags":  {updateAccountTags},
+	"create-asset":		{createAsset},
+	"update-asset-tags":	{updateAssetTags},
+	"build-transaction": {buildTransaction},
 }
 
 func main() {
@@ -72,13 +68,13 @@ func main() {
 	if len(os.Args) >= 2 && os.Args[1] == "-version" {
 		var version string
 		if buildTag != "?" {
-			// build tag with chain-core-server- prefix indicates official release
-			version = strings.TrimPrefix(buildTag, "chain-core-server-")
+			// build tag with bytom- prefix indicates official release
+			version = strings.TrimPrefix(buildTag, "bytom-")
 		} else {
 			// version of the form rev123 indicates non-release build
-			version = rev.ID
+			//version = rev.ID
 		}
-		fmt.Printf("corectl (Chain Core) %s\n", version)
+		fmt.Printf("bytomcli %s\n", version)
 		fmt.Printf("build-commit: %v\n", buildCommit)
 		fmt.Printf("build-date: %v\n", buildDate)
 		return
@@ -97,95 +93,6 @@ func main() {
 	cmd.f(mustRPCClient(), os.Args[2:])
 }
 
-func configGenerator(client *rpc.Client, args []string) {
-	const usage = "usage: corectl config-generator [flags] [quorum] [pubkey url]..."
-	var (
-		quorum  uint32
-		signers []*config.BlockSigner
-		err     error
-	)
-
-	var flags flag.FlagSet
-	maxIssuanceWindow := flags.Duration("w", 24*time.Hour, "the maximum issuance window `duration` for this generator")
-	flagK := flags.String("k", "", "local `pubkey` for signing blocks")
-	flagHSMURL := flags.String("hsm-url", "", "hsm `url` for signing blocks (mockhsm if empty)")
-	flagHSMToken := flags.String("hsm-token", "", "hsm `access-token` for connecting to hsm")
-
-	flags.Usage = func() {
-		fmt.Println(usage)
-		flags.PrintDefaults()
-		os.Exit(1)
-	}
-	flags.Parse(args)
-	args = flags.Args()
-
-	// not a blocksigner
-	if *flagK == "" && *flagHSMURL != "" {
-		fatalln("error: flag -hsm-url has no effect without -k")
-	}
-
-	// TODO(ameets): update when switching to x.509 authorization
-	if (*flagHSMURL == "") != (*flagHSMToken == "") {
-		fatalln("error: flags -hsm-url and -hsm-token must be given together")
-	}
-
-	if len(args) == 0 {
-		if *flagK != "" {
-			quorum = 1
-		}
-	} else if len(args)%2 != 1 {
-		fatalln(usage)
-	} else {
-		q64, err := strconv.ParseUint(args[0], 10, 32)
-		if err != nil {
-			fatalln(usage)
-		}
-		quorum = uint32(q64)
-
-		for i := 1; i < len(args); i += 2 {
-			pubkey, err := hex.DecodeString(args[i])
-			if err != nil {
-				fatalln(usage)
-			}
-			if len(pubkey) != ed25519.PublicKeySize {
-				fatalln("error:", "bad ed25519 public key length")
-			}
-			url := args[i+1]
-			signers = append(signers, &config.BlockSigner{
-				Pubkey: pubkey,
-				Url:    url,
-			})
-		}
-	}
-
-	var blockPub []byte
-	if *flagK != "" {
-		blockPub, err = hex.DecodeString(*flagK)
-		if err != nil {
-			fatalln("error: unable to decode block pub")
-		}
-	}
-
-	conf := &config.Config{
-		IsGenerator:         true,
-		Quorum:              quorum,
-		Signers:             signers,
-		MaxIssuanceWindowMs: bc.DurationMillis(*maxIssuanceWindow),
-		IsSigner:            *flagK != "",
-		BlockPub:            blockPub,
-		BlockHsmUrl:         *flagHSMURL,
-		BlockHsmAccessToken: *flagHSMToken,
-	}
-
-	err = client.Call(context.Background(), "/configure", conf, nil)
-	dieOnRPCError(err)
-
-	wait(client, nil)
-	var r map[string]interface{}
-	err = client.Call(context.Background(), "/info", nil, &r)
-	dieOnRPCError(err)
-	fmt.Println(r["blockchain_id"])
-}
 
 func createBlockKeyPair(client *rpc.Client, args []string) {
 	if len(args) != 0 {
@@ -197,105 +104,6 @@ func createBlockKeyPair(client *rpc.Client, args []string) {
 	err := client.Call(context.Background(), "/mockhsm/create-block-key", nil, &pub)
 	dieOnRPCError(err)
 	fmt.Printf("%x\n", pub.Pub)
-}
-
-/*
-func createToken(client *rpc.Client, args []string) {
-	const usage = "usage: corectl create-token [-net] [name] [policy]"
-	var flags flag.FlagSet
-	flagNet := flags.Bool("net", false, "DEPRECATED. create a network token instead of client")
-	flags.Usage = func() {
-		fmt.Println(usage)
-		flags.PrintDefaults()
-		os.Exit(1)
-	}
-	flags.Parse(args)
-	args = flags.Args()
-	if len(args) == 2 && *flagNet || len(args) < 1 || len(args) > 2 {
-		fatalln(usage)
-	}
-
-	req := struct{ ID string }{args[0]}
-	var tok accesstoken.Token
-	// TODO(kr): find a way to make this atomic with the grant below
-	err := client.Call(context.Background(), "/create-access-token", req, &tok)
-	dieOnRPCError(err)
-	fmt.Println(tok.Token)
-
-	grant := grantReq{
-		GuardType: "access_token",
-		GuardData: map[string]string{"id": tok.ID},
-	}
-	switch {
-	case len(args) == 2:
-		grant.Policy = args[1]
-	case *flagNet:
-		grant.Policy = "crosscore"
-		fmt.Fprintln(os.Stderr, "warning: the network flag is deprecated")
-	default:
-		grant.Policy = "client-readwrite"
-		fmt.Fprintln(os.Stderr, "warning: implicit policy name is deprecated")
-	}
-	err = client.Call(context.Background(), "/create-authorization-grant", grant, nil)
-	dieOnRPCError(err, "Auth grant error:")
-}
-*/
-
-func configNongenerator(client *rpc.Client, args []string) {
-	const usage = "usage: corectl config [flags] [blockchain-id] [generator-url]"
-	var flags flag.FlagSet
-	flagT := flags.String("t", "", "generator access `token`")
-	flagK := flags.String("k", "", "local `pubkey` for signing blocks")
-	flagHSMURL := flags.String("hsm-url", "", "hsm `url` for signing blocks (mockhsm if empty)")
-	flagHSMToken := flags.String("hsm-token", "", "hsm `access-token` for connecting to hsm")
-
-	flags.Usage = func() {
-		fmt.Println(usage)
-		flags.PrintDefaults()
-		os.Exit(1)
-	}
-	flags.Parse(args)
-	args = flags.Args()
-	if len(args) < 2 {
-		fatalln(usage)
-	}
-
-	// not a blocksigner
-	if *flagK == "" && *flagHSMURL != "" {
-		fatalln("error: flag -hsm-url has no effect without -k")
-	}
-
-	// TODO(ameets): update when switching to x.509 authorization
-	if (*flagHSMURL == "") != (*flagHSMToken == "") {
-		fatalln("error: flags -hsm-url and -hsm-token must be given together")
-	}
-
-	var blockchainID bc.Hash
-	err := blockchainID.UnmarshalText([]byte(args[0]))
-	if err != nil {
-		fatalln("error: invalid blockchain ID:", err)
-	}
-
-	var blockPub []byte
-	if *flagK != "" {
-		blockPub, err = hex.DecodeString(*flagK)
-		if err != nil {
-			fatalln("error: unable to decode block pub")
-		}
-	}
-
-	var conf config.Config
-	conf.BlockchainId = &blockchainID
-	conf.GeneratorUrl = args[1]
-	conf.GeneratorAccessToken = *flagT
-	conf.IsSigner = *flagK != ""
-	conf.BlockPub = blockPub
-	conf.BlockHsmUrl = *flagHSMURL
-	conf.BlockHsmAccessToken = *flagHSMToken
-
-	client.BlockchainID = blockchainID.String()
-	err = client.Call(context.Background(), "/configure", conf, nil)
-	dieOnRPCError(err)
 }
 
 // reset will attempt a reset rpc call on a remote core. If the
@@ -368,26 +176,8 @@ The type of guard (before the = sign) is case-insensitive.
 	dieOnRPCError(err)
 }
 
-/*
-// allowRaftMember takes an address and adds it to the list of addresses that are
-// allowed for raft cluster members.
-func allowRaftMember(client *rpc.Client, args []string) {
-	usage := "usage: corectl allow-address [member address]"
-	if len(args) != 1 {
-		fatalln(usage)
-	}
-
-	req := map[string]string{
-		"addr": args[0],
-	}
-
-	err := client.Call(context.Background(), "/add-allowed-member", req, nil)
-	dieOnRPCError(err)
-}
-*/
-
 func mustRPCClient() *rpc.Client {
-	// TODO(kr): refactor some of this cert-loading logic into chain/core
+	// TODO(kr): refactor some of this cert-loading logic into bytom/blockchain
 	// and use it from cored as well.
 	// Note that this function, unlike maybeUseTLS in cored,
 	// does not load the cert and key from env vars,
@@ -489,5 +279,113 @@ func wait(client *rpc.Client, args []string) {
 		}
 
 		time.Sleep(500 * time.Millisecond)
+	}
+}
+
+func createAccount(client *rpc.Client, args []string) {
+	if len(args) != 1 {
+		fatalln("error: createAccount takes no args")
+	}
+	xprv, err := chainkd.NewXPrv(nil)
+	if err != nil {
+		fatalln("NewXprv error.")
+	}
+	xpub := xprv.XPub()
+	fmt.Printf("xprv:%v\n", xprv)
+	fmt.Printf("xpub:%v\n", xpub)
+	type Ins struct {
+	    RootXPubs []chainkd.XPub `json:"root_xpubs"`
+		Quorum    int
+		Alias     string
+		Tags      map[string]interface{}
+		ClientToken string `json:"client_token"`
+	}
+	var ins Ins
+	ins.RootXPubs = []chainkd.XPub{xpub}
+	ins.Quorum = 1
+	ins.Alias = "aa"
+	ins.Tags = map[string]interface{}{"test_tag": "v0",}
+	ins.ClientToken = args[0]
+	responses := make([]interface{}, 50)
+	client.Call(context.Background(), "/create-account", &[]Ins{ins,}, &responses)
+	//dieOnRPCError(err)
+	fmt.Printf("responses:%v\n", responses)
+}
+
+func createAsset(client *rpc.Client, args []string) {
+	if len(args) != 1 {
+		fatalln("error: createAsset takes no args")
+	}
+	xprv, err := chainkd.NewXPrv(nil)
+	if err != nil {
+		fatalln("NewXprv error.")
+	}
+	xpub := xprv.XPub()
+	fmt.Printf("xprv:%v\n", xprv)
+	fmt.Printf("xpub:%v\n", xpub)
+	type Ins struct {
+	    RootXPubs []chainkd.XPub `json:"root_xpubs"`
+		Quorum    int
+		Alias     string
+		Tags      map[string]interface{}
+		Definition  map[string]interface{}
+		ClientToken string `json:"client_token"`
+	}
+	var ins Ins
+	ins.RootXPubs = []chainkd.XPub{xpub}
+	ins.Quorum = 1
+	ins.Alias = "aa"
+	ins.Tags = map[string]interface{}{"test_tag": "v0",}
+	ins.Definition = map[string]interface{}{"test_definition": "v0"}
+	ins.ClientToken = args[0]
+	responses := make([]interface{}, 50)
+	client.Call(context.Background(), "/create-asset", &[]Ins{ins,}, &responses)
+	//dieOnRPCError(err)
+	fmt.Printf("responses:%v\n", responses)
+}
+
+func updateAccountTags(client *rpc.Client,args []string){
+	if len(args) != 0{
+		fatalln("error:updateAccountTags not use args")
+	}
+	type Ins struct {
+	ID    *string
+	Alias *string
+	Tags  map[string]interface{} `json:"tags"`
+}
+	var ins Ins
+	aa := "1234"
+	alias := "asdfg"
+	ins.ID = &aa
+	ins.Alias = &alias
+	ins.Tags = map[string]interface{}{"test_tag": "v0",}
+	responses := make([]interface{}, 50)
+	client.Call(context.Background(), "/update-account-tags", &[]Ins{ins,}, &responses)
+	fmt.Printf("responses:%v\n", responses)
+}
+
+func updateAssetTags(client *rpc.Client, args []string){
+	if len(args) != 0{
+			fatalln("error:updateAccountTags not use args")
+	}
+	type Ins struct {
+	ID    *string
+	Alias *string
+	Tags  map[string]interface{} `json:"tags"`
+	}
+	var ins Ins
+	id := "123456"
+	alias := "asdfg"
+	ins.ID = &id
+	ins.Alias = &alias
+	ins.Tags = map[string]interface{}{"test_tag": "v0",}
+	responses := make([]interface{}, 50)
+	client.Call(context.Background(), "/update-asset-tags", &[]Ins{ins,}, &responses)
+	fmt.Printf("responses:%v\n", responses)
+}
+
+func buildTransaction(client *rpc.Client, args []string) {
+	if len(args) != 0 {
+		fatalln("error:updateAccountTags not use args")
 	}
 }
