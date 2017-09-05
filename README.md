@@ -1,9 +1,9 @@
-# [Chainmint](https://github.com/chainx-org/chainmint)  **=** [Tendermint](https://tendermint.com/) **+** [Chain](https://chain.com/)
+# [Chainmint](https://github.com/chainx-org/chainmint) = [Chain](https://chain.com/) + [Tendermint](https://tendermint.com/)
 
-Chainmint is based on the tendermint consensus inherited from Chain's UTXO and CVM. It can become a Cosmos Zone in the future, supporting [Chain](https://chain.com) cross-chain functionality. For simplicity:
+Chainmint is based on the tendermint consensus inherited from Chain's UTXO and CVM. It can become a Cosmos Zone in the future, supporting [Chain](https://chain.com) cross-chain functionality. In short:
 
 <p align="center">
-<b>Chainmint = Tendermint + UTXO + CVM</b>
+<b>Chainmint = UTXO + CVM + Tendermint </b>
 </p>
 
 
@@ -18,7 +18,7 @@ Chainmint is based on the tendermint consensus inherited from Chain's UTXO and C
 
 ### Prerequisites
 
-1. install tendermint
+1. install Tendermint
 2. install postgreSQL
 
 ### Build
