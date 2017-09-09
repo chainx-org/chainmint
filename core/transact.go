@@ -106,11 +106,11 @@ func (a *API) build(ctx context.Context, buildReqs []*BuildRequest) (interface{}
 	// If we're not the leader, we don't have access to the current
 	// reservations. Forward the build call to the leader process.
 	// TODO(jackson): Distribute reservations across cored processes.
-	if a.leader.State() != leader.Leading {
+	/*if a.leader.State() != leader.Leading {
 		var resp interface{}
 		err := a.forwardToLeader(ctx, "/build-transaction", buildReqs, &resp)
 		return resp, err
-	}
+	}*/
 
 	responses := make([]interface{}, len(buildReqs))
 	var wg sync.WaitGroup
