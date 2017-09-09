@@ -46,7 +46,7 @@ func (a *API) actionDecoder(action string) (func([]byte) (txbuilder.Action, erro
 	return decoder, true
 }
 
-func (a *API) buildSingle(ctx context.Context, req *buildRequest) (*txbuilder.Template, error) {
+func (a *API) buildSingle(ctx context.Context, req *BuildRequest) (*txbuilder.Template, error) {
 	err := a.filterAliases(ctx, req)
 	if err != nil {
 		return nil, err
@@ -102,7 +102,7 @@ func (a *API) buildSingle(ctx context.Context, req *buildRequest) (*txbuilder.Te
 }
 
 // POST /build-transaction
-func (a *API) build(ctx context.Context, buildReqs []*buildRequest) (interface{}, error) {
+func (a *API) build(ctx context.Context, buildReqs []*BuildRequest) (interface{}, error) {
 	// If we're not the leader, we don't have access to the current
 	// reservations. Forward the build call to the leader process.
 	// TODO(jackson): Distribute reservations across cored processes.
