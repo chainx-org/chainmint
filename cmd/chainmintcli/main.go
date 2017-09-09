@@ -21,6 +21,7 @@ import (
 	"github.com/chainmint/errors"
 	"github.com/chainmint/log"
 	"github.com/chainmint/crypto/ed25519/chainkd"
+	"github.com/chainmint/cmd/chainmintcli/example"
 )
 
 // config vars
@@ -59,6 +60,7 @@ var commands = map[string]*command{
 	"create-asset":		{createAsset},
 	"update-asset-tags":	{updateAssetTags},
 	"build-transaction": {buildTransaction},
+	"issue-test": {example.IssueTest},
 }
 
 func main() {

@@ -131,11 +131,11 @@ func maxBytes(h http.Handler) http.Handler {
 }
 
 func (a *API) needConfig() func(f interface{}) http.Handler {
-	if a.config == nil {
+	/*if a.config == nil {
 		return func(f interface{}) http.Handler {
 			return alwaysError(errUnconfigured)
 		}
-	}
+	}*/
 	return jsonHandler
 }
 
